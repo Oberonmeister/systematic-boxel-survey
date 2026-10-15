@@ -1,0 +1,538 @@
+{
+  "checkedAt": "2026-10-11T22:45:02.298Z",
+  "anchor": {
+    "name": "Pyurks FS-H d11-37",
+    "id64": "1282274215907"
+  },
+  "source": "https://spansh.co.uk/api/systems/field_values/system_names",
+  "children": [
+    {
+      "index": 0,
+      "generated": "Pyurks KK-P c22-0",
+      "systems": [
+        {
+          "name": "NGC 2244 Sector LO-W c16-0",
+          "id64": "87677669314",
+          "xyz": [
+            2275.84375,
+            -75.40625,
+            -3937.75
+          ],
+          "grid": [
+            1306,
+            1022,
+            504
+          ],
+          "matchesChild": true
+        },
+        {
+          "name": "NGC 2244 Sector LO-W c16-2",
+          "id64": "637433483202",
+          "xyz": [
+            2255.21875,
+            -71.53125,
+            -3912.9375
+          ],
+          "grid": [
+            1306,
+            1022,
+            504
+          ],
+          "matchesChild": true
+        },
+        {
+          "name": "NGC 2244 Sector LO-W c16-5",
+          "id64": "1462067204034",
+          "xyz": [
+            2286.1875,
+            -79.65625,
+            -3921.3125
+          ],
+          "grid": [
+            1306,
+            1022,
+            504
+          ],
+          "matchesChild": true
+        },
+        {
+          "name": "NGC 2244 Sector LO-W c16-1",
+          "id64": "362555576258",
+          "xyz": [
+            2279.90625,
+            -69.0625,
+            -3937.53125
+          ],
+          "grid": [
+            1306,
+            1022,
+            504
+          ],
+          "matchesChild": true
+        },
+        {
+          "name": "NGC 2244 Sector LO-W c16-12",
+          "id64": "3386212552642",
+          "xyz": [
+            2277.75,
+            -101.4375,
+            -3944.09375
+          ],
+          "grid": [
+            1306,
+            1022,
+            504
+          ],
+          "matchesChild": true
+        },
+        {
+          "name": "NGC 2244 Sector LO-W c16-4",
+          "id64": "1187189297090",
+          "xyz": [
+            2285.8125,
+            -79.25,
+            -3925.8125
+          ],
+          "grid": [
+            1306,
+            1022,
+            504
+          ],
+          "matchesChild": true
+        },
+        {
+          "name": "NGC 2244 Sector LO-W c16-13",
+          "id64": "3661090459586",
+          "xyz": [
+            2286.84375,
+            -89.875,
+            -3915.21875
+          ],
+          "grid": [
+            1306,
+            1022,
+            504
+          ],
+          "matchesChild": true
+        },
+        {
+          "name": "NGC 2244 Sector LO-W c16-10",
+          "id64": "2836456738754",
+          "xyz": [
+            2274.53125,
+            -95.34375,
+            -3939.1875
+          ],
+          "grid": [
+            1306,
+            1022,
+            504
+          ],
+          "matchesChild": true
+        }
+      ]
+    },
+    {
+      "index": 1,
+      "generated": "Pyurks LK-P c22-0",
+      "systems": [
+        {
+          "name": "NGC 2244 Sector MO-W c16-2",
+          "id64": "637500592066",
+          "xyz": [
+            2298.96875,
+            -80.03125,
+            -3906.8125
+          ],
+          "grid": [
+            1307,
+            1022,
+            504
+          ],
+          "matchesChild": true
+        },
+        {
+          "name": "NGC 2244 Sector MO-W c16-3",
+          "id64": "912378499010",
+          "xyz": [
+            2295.21875,
+            -79.65625,
+            -3912.34375
+          ],
+          "grid": [
+            1307,
+            1022,
+            504
+          ],
+          "matchesChild": true
+        },
+        {
+          "name": "NGC 2244 Sector MO-W c16-13",
+          "id64": "3661157568450",
+          "xyz": [
+            2307.59375,
+            -90.90625,
+            -3944.3125
+          ],
+          "grid": [
+            1307,
+            1022,
+            504
+          ],
+          "matchesChild": true
+        },
+        {
+          "name": "NGC 2244 Sector MO-W c16-11",
+          "id64": "3111401754562",
+          "xyz": [
+            2311.5,
+            -89.0625,
+            -3944.15625
+          ],
+          "grid": [
+            1307,
+            1022,
+            504
+          ],
+          "matchesChild": true
+        },
+        {
+          "name": "NGC 2244 Sector MO-W c16-12",
+          "id64": "3386279661506",
+          "xyz": [
+            2316.46875,
+            -94.5,
+            -3940.34375
+          ],
+          "grid": [
+            1307,
+            1022,
+            504
+          ],
+          "matchesChild": true
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "generated": "Pyurks IP-P c22-0",
+      "systems": [
+        {
+          "name": "NGC 2244 Sector JT-W c16-7",
+          "id64": "2011823050690",
+          "xyz": [
+            2281.8125,
+            -38.875,
+            -3910.28125
+          ],
+          "grid": [
+            1306,
+            1023,
+            504
+          ],
+          "matchesChild": true
+        }
+      ]
+    },
+    {
+      "index": 3,
+      "generated": "Pyurks JP-P c22-0",
+      "systems": [
+        {
+          "name": "NGC 2244 Sector KT-W c16-7",
+          "id64": "2011890159554",
+          "xyz": [
+            2302.84375,
+            -46.375,
+            -3910.15625
+          ],
+          "grid": [
+            1307,
+            1023,
+            504
+          ],
+          "matchesChild": true
+        },
+        {
+          "name": "NGC 2244 Sector KT-W c16-8",
+          "id64": "2286768066498",
+          "xyz": [
+            2297.25,
+            -39.96875,
+            -3921.65625
+          ],
+          "grid": [
+            1307,
+            1023,
+            504
+          ],
+          "matchesChild": true
+        }
+      ]
+    },
+    {
+      "index": 4,
+      "generated": "Pyurks OQ-N c23-0",
+      "systems": [
+        {
+          "name": "NGC 2244 Sector PU-U c17-7",
+          "id64": "2011823017930",
+          "xyz": [
+            2260.59375,
+            -83.4375,
+            -3883.71875
+          ],
+          "grid": [
+            1306,
+            1022,
+            505
+          ],
+          "matchesChild": true
+        },
+        {
+          "name": "NGC 2244 Sector PU-U c17-13",
+          "id64": "3661090459594",
+          "xyz": [
+            2273.9375,
+            -76.625,
+            -3878.28125
+          ],
+          "grid": [
+            1306,
+            1022,
+            505
+          ],
+          "matchesChild": true
+        },
+        {
+          "name": "NGC 2244 Sector PU-U c17-4",
+          "id64": "1187189297098",
+          "xyz": [
+            2292.21875,
+            -66.40625,
+            -3898.5625
+          ],
+          "grid": [
+            1306,
+            1022,
+            505
+          ],
+          "matchesChild": true
+        },
+        {
+          "name": "NGC 2244 Sector PU-U c17-2",
+          "id64": "637433483210",
+          "xyz": [
+            2275.84375,
+            -102.78125,
+            -3872.0625
+          ],
+          "grid": [
+            1306,
+            1022,
+            505
+          ],
+          "matchesChild": true
+        },
+        {
+          "name": "NGC 2244 Sector PU-U c17-10",
+          "id64": "2836456738762",
+          "xyz": [
+            2288.75,
+            -94.25,
+            -3902.4375
+          ],
+          "grid": [
+            1306,
+            1022,
+            505
+          ],
+          "matchesChild": true
+        },
+        {
+          "name": "NGC 2244 Sector PU-U c17-6",
+          "id64": "1736945110986",
+          "xyz": [
+            2266.3125,
+            -90.40625,
+            -3872.03125
+          ],
+          "grid": [
+            1306,
+            1022,
+            505
+          ],
+          "matchesChild": true
+        },
+        {
+          "name": "NGC 2244 Sector PU-U c17-11",
+          "id64": "3111334645706",
+          "xyz": [
+            2290,
+            -94.21875,
+            -3899.4375
+          ],
+          "grid": [
+            1306,
+            1022,
+            505
+          ],
+          "matchesChild": true
+        }
+      ]
+    },
+    {
+      "index": 5,
+      "generated": "Pyurks PQ-N c23-0",
+      "systems": [
+        {
+          "name": "NGC 2244 Sector QU-U c17-4",
+          "id64": "1187256405962",
+          "xyz": [
+            2315.25,
+            -82.375,
+            -3879.21875
+          ],
+          "grid": [
+            1307,
+            1022,
+            505
+          ],
+          "matchesChild": true
+        },
+        {
+          "name": "NGC 2244 Sector QU-U c17-7",
+          "id64": "2011890126794",
+          "xyz": [
+            2304.9375,
+            -74.6875,
+            -3890.9375
+          ],
+          "grid": [
+            1307,
+            1022,
+            505
+          ],
+          "matchesChild": true
+        },
+        {
+          "name": "NGC 2244 Sector QU-U c17-0",
+          "id64": "87744778186",
+          "xyz": [
+            2308.8125,
+            -99.40625,
+            -3903.59375
+          ],
+          "grid": [
+            1307,
+            1022,
+            505
+          ],
+          "matchesChild": true
+        }
+      ]
+    },
+    {
+      "index": 6,
+      "generated": "Pyurks MV-N c23-0",
+      "systems": [
+        {
+          "name": "NGC 2244 Sector NZ-U c17-4",
+          "id64": "1187189329866",
+          "xyz": [
+            2288.25,
+            -27.1875,
+            -3892.53125
+          ],
+          "grid": [
+            1306,
+            1023,
+            505
+          ],
+          "matchesChild": true
+        },
+        {
+          "name": "NGC 2244 Sector NZ-U c17-2",
+          "id64": "637433515978",
+          "xyz": [
+            2264.625,
+            -38.96875,
+            -3876.65625
+          ],
+          "grid": [
+            1306,
+            1023,
+            505
+          ],
+          "matchesChild": true
+        }
+      ]
+    },
+    {
+      "index": 7,
+      "generated": "Pyurks NV-N c23-0",
+      "systems": [
+        {
+          "name": "NGC 2244 Sector OZ-U c17-3",
+          "id64": "912378531786",
+          "xyz": [
+            2324.46875,
+            -55.5625,
+            -3894.90625
+          ],
+          "grid": [
+            1307,
+            1023,
+            505
+          ],
+          "matchesChild": true
+        },
+        {
+          "name": "NGC 2244 Sector OZ-U c17-6",
+          "id64": "1737012252618",
+          "xyz": [
+            2315.34375,
+            -64.65625,
+            -3893.75
+          ],
+          "grid": [
+            1307,
+            1023,
+            505
+          ],
+          "matchesChild": true
+        },
+        {
+          "name": "NGC 2244 Sector OZ-U c17-0",
+          "id64": "87744810954",
+          "xyz": [
+            2317.96875,
+            -50.8125,
+            -3902.375
+          ],
+          "grid": [
+            1307,
+            1023,
+            505
+          ],
+          "matchesChild": true
+        },
+        {
+          "name": "NGC 2244 Sector OZ-U c17-1",
+          "id64": "362622717898",
+          "xyz": [
+            2318.5,
+            -51.1875,
+            -3897.25
+          ],
+          "grid": [
+            1307,
+            1023,
+            505
+          ],
+          "matchesChild": true
+        }
+      ]
+    }
+  ]
+}

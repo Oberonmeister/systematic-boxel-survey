@@ -1,0 +1,880 @@
+[
+  {
+    "name": "Phroea Phio UK-W c18",
+    "end": 17,
+    "checkedAt": "2026-10-14",
+    "spansh": {
+      "count": 10000,
+      "size": 28,
+      "results": [
+        {
+          "name": "Phroea Phio UK-W c18-13",
+          "id64": "3661493112738",
+          "body_count": 1
+        },
+        {
+          "name": "Phroea Phio UK-W c18-14",
+          "id64": "3936371019682"
+        },
+        {
+          "name": "Phroea Phio UK-W c18-3",
+          "id64": "912714043298"
+        },
+        {
+          "name": "Phroea Greau UK-W c18-0",
+          "id64": "23655821218"
+        },
+        {
+          "name": "Phroea Hype UK-W c18-5",
+          "id64": "1466764823970"
+        },
+        {
+          "name": "Phroea Hype UK-W c18-18",
+          "id64": "5040177614242"
+        },
+        {
+          "name": "Phroea Hype UK-W c18-2",
+          "id64": "642131103138"
+        },
+        {
+          "name": "Phroea Hypai UK-W c18-7",
+          "id64": "2012225670562"
+        },
+        {
+          "name": "Phroea Flyou UK-W c18-0",
+          "id64": "23655818658"
+        },
+        {
+          "name": "Phroea Bloae UK-W c18-0",
+          "id64": "23655820706",
+          "body_count": 9
+        },
+        {
+          "name": "Phroea Phoe UK-W c18-17",
+          "id64": "4748119838626"
+        },
+        {
+          "name": "Phroea Hypai UK-W c18-2",
+          "id64": "637836135842"
+        },
+        {
+          "name": "Phroea Prao UK-W c18-171",
+          "id64": "47092202416034"
+        },
+        {
+          "name": "Phroea Dryiae UK-W c18-0",
+          "id64": "75195418530"
+        },
+        {
+          "name": "Phroea Prau UK-W c18-793",
+          "id64": "218070555502498"
+        },
+        {
+          "name": "Phroea Prao UK-W c18-2611",
+          "id64": "717794295359394"
+        },
+        {
+          "name": "Phroea Hypa UK-W c18-0",
+          "id64": "70900452770",
+          "body_count": 3
+        },
+        {
+          "name": "Phroea Phoea UK-W c18-3",
+          "id64": "917009010594"
+        },
+        {
+          "name": "Phroea Prau UK-W c18-474",
+          "id64": "130384503187362"
+        },
+        {
+          "name": "Phroea Prao UK-W c18-2465",
+          "id64": "677662120945570"
+        },
+        {
+          "name": "Phroea Eaec UK-W c18-2",
+          "id64": "620656267170"
+        },
+        {
+          "name": "Phroea Hype UK-W c18-16",
+          "id64": "4490421800354"
+        },
+        {
+          "name": "Eoch Phio UK-W c18-0",
+          "id64": "85932837538"
+        },
+        {
+          "name": "Scheau Phio UK-W c18-0",
+          "id64": "85932838562"
+        },
+        {
+          "name": "Dryaa Phio UK-W c18-0",
+          "id64": "96670256034",
+          "body_count": 2
+        },
+        {
+          "name": "Scheau Phio UK-W c18-8",
+          "id64": "2284956094114"
+        },
+        {
+          "name": "Flyua Phio UK-W c18-16",
+          "id64": "4483979352738"
+        },
+        {
+          "name": "Scheau Phio UK-W c18-17",
+          "id64": "4758857256610"
+        }
+      ]
+    },
+    "edsm": [
+      {
+        "name": "Phroea Phio UK-W c18-13",
+        "id64": "3661493112738"
+      }
+    ],
+    "spanshDetail": {
+      "system": {
+        "name": "Phroea Phio UK-W c18-13",
+        "id64": "3661493112738",
+        "bodyCount": 1,
+        "bodies": [
+          {
+            "bodyId": 0,
+            "name": "Phroea Phio UK-W c18-13",
+            "type": "Star",
+            "subType": "G (White-Yellow) Star",
+            "updateTime": "2022-09-10T18:43:26Z"
+          }
+        ]
+      }
+    },
+    "edsmDetail": {
+      "name": "Phroea Phio UK-W c18-13",
+      "id64": "3661493112738",
+      "bodyCount": 1,
+      "bodies": [
+        {
+          "bodyId": 0,
+          "id": 406761645,
+          "name": "Phroea Phio UK-W c18-13",
+          "type": "Star",
+          "subType": "G (White-Yellow) Star",
+          "updateTime": "2022-09-10 18:43:26"
+        }
+      ]
+    }
+  },
+  {
+    "name": "Col 107 Sector HI-I d10",
+    "end": 132,
+    "checkedAt": "2026-10-14",
+    "spansh": {
+      "count": 10000,
+      "size": 143,
+      "results": [
+        {
+          "name": "Col 107 Sector HI-I d10-107",
+          "id64": "3687506249619"
+        },
+        {
+          "name": "Col 107 Sector HI-I d10-104",
+          "id64": "3584427034515",
+          "body_count": 4
+        },
+        {
+          "name": "Col 107 Sector HI-I d10-116",
+          "id64": "3996743894931",
+          "body_count": 2
+        },
+        {
+          "name": "Col 107 Sector HI-I d10-64",
+          "id64": "2210037499795"
+        },
+        {
+          "name": "Col 107 Sector HI-I d10-100",
+          "id64": "3446988081043",
+          "body_count": 1
+        },
+        {
+          "name": "Col 107 Sector HI-I d10-53",
+          "id64": "1832080377747",
+          "body_count": 2
+        },
+        {
+          "name": "Col 107 Sector HI-I d10-78",
+          "id64": "2691073836947"
+        },
+        {
+          "name": "Col 107 Sector HI-I d10-58",
+          "id64": "2003879069587"
+        },
+        {
+          "name": "Col 173 Sector HI-I d10-107",
+          "id64": "3687271369083"
+        },
+        {
+          "name": "Col 107 Sector HI-I d10-44",
+          "id64": "1522842732435"
+        },
+        {
+          "name": "Col 107 Sector HI-I d10-73",
+          "id64": "2519275145107"
+        },
+        {
+          "name": "Col 107 Sector HI-I d10-26",
+          "id64": "904367441811"
+        },
+        {
+          "name": "Col 107 Sector HI-I d10-14",
+          "id64": "492050581395",
+          "body_count": 40
+        },
+        {
+          "name": "Col 107 Sector HI-I d10-0",
+          "id64": "11014244243"
+        },
+        {
+          "name": "Col 107 Sector HI-I d10-33",
+          "id64": "1144885610387"
+        },
+        {
+          "name": "Col 107 Sector HI-I d10-113",
+          "id64": "3893664679827"
+        },
+        {
+          "name": "Col 107 Sector HI-I d10-119",
+          "id64": "4099823110035"
+        },
+        {
+          "name": "Col 107 Sector HI-I d10-94",
+          "id64": "3240829650835"
+        },
+        {
+          "name": "Col 107 Sector HI-I d10-76",
+          "id64": "2622354360211"
+        },
+        {
+          "name": "Col 107 Sector HI-I d10-55",
+          "id64": "1900799854483"
+        },
+        {
+          "name": "Col 107 Sector HI-I d10-21",
+          "id64": "732568749971"
+        },
+        {
+          "name": "Col 107 Sector HI-I d10-6",
+          "id64": "217172674451"
+        },
+        {
+          "name": "Col 107 Sector HI-I d10-110",
+          "id64": "3790585464723",
+          "body_count": 11
+        },
+        {
+          "name": "Col 107 Sector HI-I b26-2",
+          "id64": "5097723338177"
+        },
+        {
+          "name": "Col 107 Sector HI-I c10-2",
+          "id64": "637433286346"
+        },
+        {
+          "name": "Col 107 Sector HI-I c10-0",
+          "id64": "87677472458"
+        },
+        {
+          "name": "Col 107 Sector HI-I c10-3",
+          "id64": "912311193290"
+        },
+        {
+          "name": "Col 107 Sector HI-I c10-4",
+          "id64": "1187189100234",
+          "body_count": 1
+        },
+        {
+          "name": "Col 107 Sector PD-I d10-107",
+          "id64": "3687606896531"
+        },
+        {
+          "name": "Col 107 Sector LD-I d10-107",
+          "id64": "3687539787667"
+        },
+        {
+          "name": "Col 107 Sector ND-I d10-107",
+          "id64": "3687573342099",
+          "body_count": 15
+        },
+        {
+          "name": "Col 107 Sector KI-I d10-107",
+          "id64": "3687556581267",
+          "body_count": 8
+        },
+        {
+          "name": "Col 107 Sector DI-I d10-107",
+          "id64": "3687439140755"
+        },
+        {
+          "name": "NGC 2546 Sector HI-I d10-107",
+          "id64": "3687573358899"
+        },
+        {
+          "name": "Col 107 Sector ID-I d10-21",
+          "id64": "732551956371"
+        },
+        {
+          "name": "Col 107 Sector ID-I d10-5",
+          "id64": "182796142483"
+        },
+        {
+          "name": "Col 107 Sector ID-I d10-28",
+          "id64": "973070124947"
+        },
+        {
+          "name": "Col 107 Sector IN-I d10-46",
+          "id64": "1591612557203"
+        },
+        {
+          "name": "Col 107 Sector II-I d10-117",
+          "id64": "4031120410515"
+        },
+        {
+          "name": "Col 107 Sector II-I d10-124",
+          "id64": "4271638579091"
+        },
+        {
+          "name": "Col 107 Sector IS-I d10-1",
+          "id64": "45457901459"
+        },
+        {
+          "name": "Col 107 Sector ID-I d10-70",
+          "id64": "2416179136403"
+        },
+        {
+          "name": "Col 107 Sector IN-I d10-11",
+          "id64": "389021714323"
+        },
+        {
+          "name": "Col 107 Sector IN-I d10-17",
+          "id64": "595180144531"
+        },
+        {
+          "name": "Col 107 Sector II-I d10-134",
+          "id64": "4615235962771"
+        },
+        {
+          "name": "Col 107 Sector ID-I d10-88",
+          "id64": "3034654427027"
+        },
+        {
+          "name": "Col 107 Sector ID-I d10-99",
+          "id64": "3412611549075",
+          "body_count": 12
+        },
+        {
+          "name": "Col 107 Sector IN-I d10-96",
+          "id64": "3309599475603"
+        },
+        {
+          "name": "Col 107 Sector ID-I d10-52",
+          "id64": "1797703845779",
+          "body_count": 23
+        },
+        {
+          "name": "Col 107 Sector II-I d10-52",
+          "id64": "1797737416595"
+        },
+        {
+          "name": "Col 107 Sector IN-I d10-53",
+          "id64": "1832130725779"
+        },
+        {
+          "name": "Col 107 Sector ID-I d10-48",
+          "id64": "1660264892307",
+          "body_count": 41
+        },
+        {
+          "name": "Col 107 Sector ID-I d10-23",
+          "id64": "801271433107"
+        },
+        {
+          "name": "Col 107 Sector ID-I d10-14",
+          "id64": "492033787795",
+          "body_count": 21
+        },
+        {
+          "name": "Col 107 Sector II-I d10-94",
+          "id64": "3240846428051",
+          "body_count": 10
+        },
+        {
+          "name": "Col 107 Sector ID-I d10-18",
+          "id64": "629472741267"
+        },
+        {
+          "name": "Col 107 Sector II-I d10-19",
+          "id64": "663866050451"
+        },
+        {
+          "name": "Col 107 Sector II-I d10-32",
+          "id64": "1110542649235",
+          "body_count": 15
+        },
+        {
+          "name": "Col 107 Sector II-I d10-74",
+          "id64": "2553651660691",
+          "body_count": 8
+        },
+        {
+          "name": "Col 107 Sector ID-I d10-63",
+          "id64": "2175660967827"
+        },
+        {
+          "name": "Col 107 Sector ID-I d10-84",
+          "id64": "2897215473555"
+        },
+        {
+          "name": "Col 107 Sector II-I d10-115",
+          "id64": "3962400933779"
+        },
+        {
+          "name": "Col 107 Sector II-I d10-123",
+          "id64": "4237278840723"
+        },
+        {
+          "name": "Col 107 Sector ID-I d10-22",
+          "id64": "766911694739"
+        },
+        {
+          "name": "Col 107 Sector IN-I d10-56",
+          "id64": "1935209940883"
+        },
+        {
+          "name": "Col 107 Sector ID-I d10-75",
+          "id64": "2587977828243"
+        },
+        {
+          "name": "Col 107 Sector IN-I d10-28",
+          "id64": "973137266579"
+        },
+        {
+          "name": "Col 107 Sector II-I d10-29",
+          "id64": "1007463434131",
+          "body_count": 3
+        },
+        {
+          "name": "Col 107 Sector IS-I d10-9",
+          "id64": "320335808403",
+          "body_count": 10
+        },
+        {
+          "name": "Col 107 Sector IN-I d10-34",
+          "id64": "1179295696787"
+        },
+        {
+          "name": "Col 107 Sector ID-I d10-31",
+          "id64": "1076149340051"
+        },
+        {
+          "name": "Col 107 Sector ID-I d10-15",
+          "id64": "526393526163",
+          "body_count": 36
+        },
+        {
+          "name": "Col 107 Sector ID-I d10-47",
+          "id64": "1625905153939"
+        },
+        {
+          "name": "Col 107 Sector ID-I d10-67",
+          "id64": "2313099921299"
+        },
+        {
+          "name": "Col 107 Sector II-I d10-108",
+          "id64": "3721882765203"
+        },
+        {
+          "name": "Col 107 Sector II-I d10-133",
+          "id64": "4580876224403",
+          "body_count": 31
+        },
+        {
+          "name": "Col 107 Sector ID-I d10-17",
+          "id64": "595113002899"
+        },
+        {
+          "name": "Col 107 Sector ID-I d10-38",
+          "id64": "1316667508627",
+          "body_count": 31
+        },
+        {
+          "name": "Col 107 Sector IN-I d10-59",
+          "id64": "2038289155987",
+          "body_count": 17
+        },
+        {
+          "name": "Col 107 Sector II-I d10-61",
+          "id64": "2106975061907"
+        },
+        {
+          "name": "Col 107 Sector II-I d10-13",
+          "id64": "457707620243"
+        },
+        {
+          "name": "Col 107 Sector ID-I d10-6",
+          "id64": "217155880851",
+          "body_count": 10
+        },
+        {
+          "name": "Col 107 Sector ID-I d10-65",
+          "id64": "2244380444563"
+        },
+        {
+          "name": "Col 107 Sector IN-I d10-20",
+          "id64": "698259359635"
+        },
+        {
+          "name": "Col 107 Sector ID-I d10-49",
+          "id64": "1694624630675"
+        },
+        {
+          "name": "Col 107 Sector ID-I d10-32",
+          "id64": "1110509078419"
+        },
+        {
+          "name": "Col 107 Sector II-I d10-112",
+          "id64": "3859321718675"
+        },
+        {
+          "name": "Col 107 Sector II-I d10-98",
+          "id64": "3378285381523",
+          "body_count": 38
+        },
+        {
+          "name": "Col 107 Sector IN-I d10-3",
+          "id64": "114143807379"
+        },
+        {
+          "name": "Col 107 Sector IN-I d10-23",
+          "id64": "801338574739"
+        },
+        {
+          "name": "Col 107 Sector IN-I d10-13",
+          "id64": "457741191059"
+        },
+        {
+          "name": "Col 107 Sector IS-I d10-19",
+          "id64": "663933192083"
+        },
+        {
+          "name": "Col 107 Sector ID-I d10-71",
+          "id64": "2450538874771"
+        },
+        {
+          "name": "Col 107 Sector ID-I d10-60",
+          "id64": "2072581752723",
+          "body_count": 33
+        },
+        {
+          "name": "Col 107 Sector ID-I d10-30",
+          "id64": "1041789601683"
+        },
+        {
+          "name": "Col 107 Sector ID-I d10-72",
+          "id64": "2484898613139"
+        },
+        {
+          "name": "Col 107 Sector II-I d10-128",
+          "id64": "4409077532563"
+        },
+        {
+          "name": "Col 107 Sector II-I d10-88",
+          "id64": "3034687997843"
+        },
+        {
+          "name": "Col 107 Sector IN-I d10-58",
+          "id64": "2003929417619"
+        },
+        {
+          "name": "Col 107 Sector IN-I d10-25",
+          "id64": "870058051475"
+        },
+        {
+          "name": "Col 107 Sector IS-I d10-5",
+          "id64": "182896854931"
+        },
+        {
+          "name": "Col 107 Sector ID-I d10-9",
+          "id64": "320235095955"
+        },
+        {
+          "name": "Col 107 Sector ID-I d10-11",
+          "id64": "388954572691"
+        },
+        {
+          "name": "Col 107 Sector IS-I d10-52",
+          "id64": "1797804558227",
+          "body_count": 3
+        },
+        {
+          "name": "Col 107 Sector ID-I d10-53",
+          "id64": "1832063584147"
+        },
+        {
+          "name": "Col 107 Sector ID-I d10-62",
+          "id64": "2141301229459"
+        },
+        {
+          "name": "Col 107 Sector ID-I d10-66",
+          "id64": "2278740182931"
+        },
+        {
+          "name": "Col 107 Sector II-I d10-139",
+          "id64": "4787034654611"
+        },
+        {
+          "name": "Col 107 Sector II-I d10-138",
+          "id64": "4752674916243"
+        },
+        {
+          "name": "Col 107 Sector ID-I d10-96",
+          "id64": "3309532333971"
+        },
+        {
+          "name": "Col 107 Sector ID-I d10-92",
+          "id64": "3172093380499"
+        },
+        {
+          "name": "Col 107 Sector II-I d10-92",
+          "id64": "3172126951315"
+        },
+        {
+          "name": "Col 107 Sector ID-I d10-93",
+          "id64": "3206453118867"
+        },
+        {
+          "name": "Col 107 Sector CI-I d10-21",
+          "id64": "732484863891"
+        },
+        {
+          "name": "Col 107 Sector AN-I d10-21",
+          "id64": "732484880275"
+        },
+        {
+          "name": "Col 107 Sector BN-I d10-21",
+          "id64": "732501657491",
+          "body_count": 8
+        },
+        {
+          "name": "Col 107 Sector GD-I d10-20",
+          "id64": "698158663571"
+        },
+        {
+          "name": "Col 107 Sector EI-I d10-20",
+          "id64": "698158679955"
+        },
+        {
+          "name": "Col 107 Sector HD-I d10-20",
+          "id64": "698175440787"
+        },
+        {
+          "name": "Col 107 Sector FI-I d10-20",
+          "id64": "698175457171"
+        },
+        {
+          "name": "Col 107 Sector BS-I d10-20",
+          "id64": "698175489939"
+        },
+        {
+          "name": "Col 107 Sector ZW-I d10-20",
+          "id64": "698175506323"
+        },
+        {
+          "name": "Col 107 Sector FI-I d10-5",
+          "id64": "182779381651"
+        },
+        {
+          "name": "Col 107 Sector KD-I d10-5",
+          "id64": "182829696915"
+        },
+        {
+          "name": "Col 107 Sector GS-I d10-5",
+          "id64": "182863300499"
+        },
+        {
+          "name": "Col 107 Sector OD-I d10-5",
+          "id64": "182896805779",
+          "body_count": 19
+        },
+        {
+          "name": "Col 107 Sector JI-I d10-0",
+          "id64": "11047798675",
+          "body_count": 13
+        },
+        {
+          "name": "Col 107 Sector HD-I d10-34",
+          "id64": "1179211777939",
+          "body_count": 7
+        },
+        {
+          "name": "Col 107 Sector BS-I d10-34",
+          "id64": "1179211827091"
+        },
+        {
+          "name": "Col 107 Sector ND-I d10-34",
+          "id64": "1179312441235"
+        },
+        {
+          "name": "Col 107 Sector AS-I d10-31",
+          "id64": "1076115834771"
+        },
+        {
+          "name": "Col 107 Sector MD-I d10-31",
+          "id64": "1076216448915",
+          "body_count": 2
+        },
+        {
+          "name": "Col 107 Sector ZR-I d10-28",
+          "id64": "973019842451"
+        },
+        {
+          "name": "Col 107 Sector CS-I d10-28",
+          "id64": "973070174099"
+        },
+        {
+          "name": "Col 107 Sector FS-I d10-28",
+          "id64": "973120505747"
+        },
+        {
+          "name": "Col 107 Sector EN-I d10-36",
+          "id64": "1247948064659"
+        },
+        {
+          "name": "Col 107 Sector AX-I d10-35",
+          "id64": "1213588359059"
+        },
+        {
+          "name": "Col 107 Sector KD-I d10-35",
+          "id64": "1213621847955"
+        },
+        {
+          "name": "Col 107 Sector ND-I d10-40",
+          "id64": "1385470871443",
+          "body_count": 29
+        },
+        {
+          "name": "Col 107 Sector LN-I d10-40",
+          "id64": "1385504458643"
+        },
+        {
+          "name": "Col 107 Sector YW-I d10-41",
+          "id64": "1419713234835"
+        },
+        {
+          "name": "Col 107 Sector GS-I d10-41",
+          "id64": "1419813881747"
+        },
+        {
+          "name": "Col 107 Sector EI-I d10-37",
+          "id64": "1282274232211"
+        }
+      ]
+    },
+    "edsm": [
+      {
+        "name": "Col 107 Sector HI-I d10-0",
+        "id64": "11014244243"
+      },
+      {
+        "name": "Col 107 Sector HI-I d10-100",
+        "id64": "3446988081043"
+      },
+      {
+        "name": "Col 107 Sector HI-I d10-104",
+        "id64": "3584427034515"
+      },
+      {
+        "name": "Col 107 Sector HI-I d10-107",
+        "id64": "3687506249619"
+      },
+      {
+        "name": "Col 107 Sector HI-I d10-110",
+        "id64": "3790585464723"
+      },
+      {
+        "name": "Col 107 Sector HI-I d10-113",
+        "id64": "3893664679827"
+      },
+      {
+        "name": "Col 107 Sector HI-I d10-116",
+        "id64": "3996743894931"
+      },
+      {
+        "name": "Col 107 Sector HI-I d10-119",
+        "id64": "4099823110035"
+      },
+      {
+        "name": "Col 107 Sector HI-I d10-14",
+        "id64": "492050581395"
+      },
+      {
+        "name": "Col 107 Sector HI-I d10-21",
+        "id64": "732568749971"
+      },
+      {
+        "name": "Col 107 Sector HI-I d10-26",
+        "id64": "904367441811"
+      },
+      {
+        "name": "Col 107 Sector HI-I d10-33",
+        "id64": "1144885610387"
+      },
+      {
+        "name": "Col 107 Sector HI-I d10-44",
+        "id64": "1522842732435"
+      },
+      {
+        "name": "Col 107 Sector HI-I d10-53",
+        "id64": "1832080377747"
+      },
+      {
+        "name": "Col 107 Sector HI-I d10-55",
+        "id64": "1900799854483"
+      },
+      {
+        "name": "Col 107 Sector HI-I d10-6",
+        "id64": "217172674451"
+      },
+      {
+        "name": "Col 107 Sector HI-I d10-64",
+        "id64": "2210037499795"
+      },
+      {
+        "name": "Col 107 Sector HI-I d10-73",
+        "id64": "2519275145107"
+      },
+      {
+        "name": "Col 107 Sector HI-I d10-76",
+        "id64": "2622354360211"
+      },
+      {
+        "name": "Col 107 Sector HI-I d10-78",
+        "id64": "2691073836947"
+      },
+      {
+        "name": "Col 107 Sector HI-I d10-94",
+        "id64": "3240829650835"
+      }
+    ],
+    "spanshDetail": {
+      "system": {
+        "name": "Col 107 Sector HI-I d10-107",
+        "id64": "3687506249619",
+        "bodies": []
+      }
+    },
+    "edsmDetail": {
+      "name": "Col 107 Sector HI-I d10-107",
+      "id64": "3687506249619",
+      "bodyCount": null,
+      "bodies": []
+    }
+  }
+]
