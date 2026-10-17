@@ -171,6 +171,24 @@ function createBridge(Elite,notify=()=>{}){
   const full={...raw,...dump.system,id64:id,bodyCount:raw.bodyCount??raw.body_count??dump.system.bodyCount};
   return C.catalogueStatus(full);
  }
+ const discoveryRequests=new WeakMap();
+ async function edsmDiscovery(s,i,seq,{stopped=()=>false}={}){
+  const r=C.recordAt(s,i,seq,false);if(!r||!s.policy.providers.includes('edsm')||r.catalogues.edsm?.state!=='present'||stopped())return;
+  const name=r.alias||C.systemName(C.boxAt(s,i),seq),cached=r.edsmDiscovery;
+  if(cached?.name===name&&(cached.commander||Date.now()-Date.parse(cached.checked)<(cached.error?60000:86400000)))return cached;
+  if(discoveryRequests.has(r))return discoveryRequests.get(r);
+  const request=(async()=>{
+   try{
+    const raw=await fetchJSON('https://www.edsm.net/api-system-v1/traffic?systemName='+encodeURIComponent(name),'edsm');
+    if(stopped())return;
+    if(!raw||C.norm(raw.name)!==C.norm(name)||r.id64&&C.safeId(raw.id64)!==r.id64)throw Error('EDSM attribution response did not match this system.');
+    const commander=typeof raw.discovery?.commander==='string'?raw.discovery.commander.trim().replace(/[\u0000-\u001f\u007f]/g,' '):'';
+    // This is EDSM system discovery attribution, never body discovery or visit evidence.
+    return r.edsmDiscovery={name,commander,date:C.catalogueTime(raw.discovery?.date),checked:new Date().toISOString()};
+   }catch(e){if(!stopped())return r.edsmDiscovery={name,commander:'',checked:new Date().toISOString(),error:e.message||String(e)};}
+  })();
+  discoveryRequests.set(r,request);try{return await request;}finally{discoveryRequests.delete(r);}
+ }
  async function edsmBatch(s,i,sequences){
   const b=C.boxAt(s,i),names=sequences.map(seq=>C.recordAt(s,i,seq).alias||C.systemName(b,seq));
   const query=names.map(n=>'systemName[]='+encodeURIComponent(n)).join('&');
@@ -292,7 +310,10 @@ function createBridge(Elite,notify=()=>{}){
  async function overlay(s,enabled){
   if(!enabled)return Elite.overlay.clear();const b=C.boxAt(s,s.activeBox),m=C.metadata(s,s.activeBox),st=C.boxStats(s,s.activeBox),overall=C.surveyStats(s),r=C.recordAt(s,s.activeBox,m.cursor,false);
   const progress=stats=>stats.total===null?`${stats.handled} handled; end unknown`:`${stats.handled}/${stats.total} (${stats.percent.toFixed(1)}%)`;
-  const sections=[`Total survey: ${progress(overall)}`,`Current boxel survey: ${b.prefix} - ${progress(st)}`,`Next: ${C.systemName(b,m.cursor)}`,...s.policy.providers.map(p=>`${p==='edsm'?'EDSM':'Spansh'}: ${r?.catalogues[p]?.state||'unchecked'}`)];
+  const sections=[`Total survey: ${progress(overall)}`,`Current boxel survey: ${b.prefix} - ${progress(st)}`,`Next: ${C.systemName(b,m.cursor)}`,...s.policy.providers.map(p=>{
+   const c=r?.catalogues[p],who=p==='edsm'&&c?.state==='present'?r?.edsmDiscovery?.commander:'',date=C.catalogueTime(c?.latestBodyUpdate);
+   return `${p==='edsm'?'EDSM':'Spansh'}: ${c?.state||'unchecked'}${who?' ['+who+']':''}${date?' · body update '+C.catalogueDateLabel(date):''}`;
+  })];
   if(s.liveSystem&&!s.liveSystem.outside&&Number.isSafeInteger(s.liveSystem.i)&&Number.isSafeInteger(s.liveSystem.seq)){const current=C.recordAt(s,s.liveSystem.i,s.liveSystem.seq,false);if(current)sections.push(`Here: ${C.localStatus(current).label}`);}
   else if(s.liveSystem?.outside&&s.liveSystem.name)sections.push(`Here: ${s.liveSystem.name} (outside survey)`);
   const text=sections.join(' | ');let fontSize=18,hud2=false;
@@ -327,7 +348,7 @@ function createBridge(Elite,notify=()=>{}){
    return actual;
   }finally{off?.();}
  }
- return{load,save,reset,route,history,check,checkBoxel,copy,configureClipboard,disconnectClipboard,hasClipboardHelper:()=>!!clipboardConfig,overlayDescription:()=>overlayDescription,overlay,plot,stopPlot,fetchJSON,edsmBatch,spansh};
+ return{load,save,reset,route,history,check,checkBoxel,copy,configureClipboard,disconnectClipboard,hasClipboardHelper:()=>!!clipboardConfig,overlayDescription:()=>overlayDescription,overlay,plot,stopPlot,fetchJSON,edsmBatch,edsmDiscovery,spansh};
 }
 if(typeof module!=='undefined'&&module.exports)module.exports={createBridge,importBackup};else root.SurveyBridge={createBridge,importBackup};
 })(typeof globalThis!=='undefined'?globalThis:this);

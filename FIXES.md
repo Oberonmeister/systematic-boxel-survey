@@ -1,4 +1,14 @@
-# Systematic Boxel Survey changes — 1.0.7
+# Systematic Boxel Survey changes — 1.0.8
+
+## 1.0.8 — saved anchor lists, EDSM attribution and scan dates
+
+Calculated route and string sources now persist as named anchor lists. Reopen one to select another anchor or resume an existing survey without rebuilding the source. Captured routes work even when the live route is gone. Existing multi-anchor snapshots migrate once; list removal preserves surveys. Backups include lists, including workspaces with no surveys yet.
+
+The EDSM system-discovery commander appears in brackets on the target card, sequence row and overlay. A background traffic lookup after target copying verifies system identity and caches attribution separately from catalogue status. Bulk presence checks remain unchanged; unavailable attribution never blocks copying or alters scan/visit evidence.
+
+Catalogue cards, sequence rows and the HUD show the latest available body-update date, separate from discovery date and query time. UTC dates before 19 May 2021 gain **(pre-Odyssey)** as a clue for further exobiology investigation, without asserting that biology is untouched. The oldest major-body date still governs age-based revisits. No overlay settings are introduced in this release.
+
+Validation: 100 logic tests and eight isolated browser workflows, covering source migration/reuse/removal, persistence, escaped commander names, delayed attribution without clipboard blocking, identity checks, error isolation, UTC dates and the Odyssey cutoff. Attribution uses the user's live EDSM traffic response as a regression fixture. The user also tested version 1.0.8 in-game and confirmed it works on 18 October 2026.
 
 ## 1.0.7 — bulk presence and optional boxel iteration
 

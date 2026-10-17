@@ -1,6 +1,6 @@
 # Systematic Boxel Survey for JACoB
 
-Import **Systematic-Boxel-Survey.html** (version **1.0.7**) as a separate saved JACoB tab. It does not replace BOXEL Explorer or change JACoB’s core. Spansh checks use a known exact address where available; otherwise they inspect the top 10 name-search results. A search miss is labelled **No exact match in top 10**, remains a visit candidate, and does not prove catalogue absence. A known system in that same boxel can supply an address reference. No reference is required to continue surveying. See **FIXES.md** for catalogue timeout handling, the developer's journal fix, Spansh compatibility, reset recovery, personal history, clipboard helper and the green HUD2 overlay.
+Import **Systematic-Boxel-Survey.html** (version **1.0.8**) as a separate saved JACoB tab. It does not replace BOXEL Explorer or change JACoB’s core. Spansh checks use a known exact address where available; otherwise they inspect the top 10 name-search results. A search miss is labelled **No exact match in top 10**, remains a visit candidate, and does not prove catalogue absence. A known system in that same boxel can supply an address reference. No reference is required to continue surveying. See **FIXES.md** for catalogue timeout handling, the developer's journal fix, Spansh compatibility, reset recovery, personal history, clipboard helper and the green HUD2 overlay.
 
 **Check entire boxel** now makes one EDSM prefix request and one Spansh search for the number of systems plus ten (or only the enabled provider). Results are filtered by exact boxel and suffix. Spansh search misses are labelled **Not found in boxel search**, remain visit candidates, and are not proof of absence. Body details are requested only for matches in every enabled catalogue, excluding systems already handled by personal evidence, the ignore-visited policy, or the visit-every-system policy. Provider errors remain unresolved. **Check target** and **Check next 25** retain individual checks.
 
@@ -29,6 +29,22 @@ Open the HTML directly in a browser for an offline UI preview. That preview has 
 - Arrival prepares the next target. Journal scans continue updating the system you are actually in. Completing FSS is separate from changing targets.
 - Use **Check next 25** or **Check entire boxel** for an overview ahead of time. The latter requires a supplied final suffix. Missing records and request failures never establish an endpoint.
 - Add final bounds later through **Edit final bounds**. Overall percentages appear only when every included boxel has a bound; a bounded active boxel can have its own percentage in a mixed survey.
+
+## Reuse an anchor list
+
+Calculating a route or pasted system list saves its ordered, deduplicated anchors automatically. Give it a name beside **Choose your anchor** and choose **Save name**. A single-system source can also be saved explicitly.
+
+Open **Saved anchor lists** from the survey dashboard, or use **Return to anchor list** to return to that survey's source. Select another anchor and create its survey normally. The list shows which anchors already have surveys and offers **Open survey** to resume the latest one. Each survey keeps its own bounds and progress. A captured route remains usable after GalMap changes or the route disappears.
+
+Existing multi-anchor survey snapshots are recovered into this library once when upgrading. **Remove list** removes only the saved list; its surveys remain. Lists are included in **Export backup**, even before a survey is started. The tab's usual storage limit still applies.
+
+## Catalogue attribution and dates
+
+EDSM's system-discovery commander appears in brackets beside EDSM in the target card, sequence table and overlay. It comes from the traffic endpoint's `discovery.commander`, not individual body discoveries, and does not count as a personal visit. The selected target is fetched in the background after copying, then cached in the survey; other rows acquire names as their attribution is fetched. Whole-boxel checks retain bulk presence discovery without an attribution request for every row. Attribution failures do not change presence, scan completion or clipboard results.
+
+**Latest reported body update** is the most recent valid date among the returned body records. The shorter **Body update** date in the list and overlay uses UTC. Missing dates remain unavailable; deferred body details are identified as not requested. **Checked** is the time of our catalogue query, while system discovery is a different historical event. Neither substitutes for a body-update date. Age-based revisit policy still uses the oldest dated major-body record, so one recent update does not make every older scan fresh.
+
+Dates before [Odyssey's 19 May 2021 release](https://store.steampowered.com/app/1336350/Elite_Dangerous_Odyssey/) get **(pre-Odyssey)**. This flags older catalogue evidence worth investigating for exobiology; it is not proof that nobody subsequently visited, landed or sampled biology. It does not change completion or revisit policy. Overlay display settings remain a future addition.
 
 ## Completion and belts
 
@@ -81,10 +97,9 @@ The `source/` directory contains the readable modules, HTML template, build scri
 
 ```text
 node source/build.cjs
-node --test source/model.test.cjs source/bridge.test.cjs
-node --test source/hierarchy.test.cjs source/bulk.test.cjs
+npm test
 ```
 
-For the optional browser tests, install Playwright in your development environment, make it resolvable by Node, and run `npm run test:browser` (all six workflows). `CHROME_PATH` can select an installed browser; `SURVEY_SCREENSHOT_DIR` controls optional screenshots.
+For the optional browser tests, install Playwright in your development environment, make it resolvable by Node, and run `npm run test:browser` (all eight workflows). `CHROME_PATH` can select an installed browser; `SURVEY_SCREENSHOT_DIR` controls optional screenshots.
 
 See **DESIGN.md** for the reuse audit and state/data flow. Upstream source inspected: [pseudo6626/JACoB, commit 284f9cc](https://github.com/pseudo6626/JACoB/tree/284f9cc3291a5b4c53cf14628c91b0940573ee25).

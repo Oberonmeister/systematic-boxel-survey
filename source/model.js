@@ -59,6 +59,45 @@ function deriveAnchors(names,mass,single=false){
  if(!anchors.length)throw Error('No eligible source systems remain. Choose systems at or below the anchor mass class.');
  return{anchors,ignored};
 }
+function anchorListFingerprint(value){
+ const source=value.source||{},names=(source.snapshot||inputNames(source.text)).map(x=>norm(typeof x==='string'?x:x.name||x.StarSystem));
+ return JSON.stringify([value.anchorMass,source.type||'single',names,value.anchors.map(b=>b.key)]);
+}
+function saveAnchorList(app,d,name='',now=new Date().toISOString()){
+ if(!d.anchors?.length)throw Error('Identify anchor boxels before saving a list.');
+ const lists=app.anchorLists||(app.anchorLists=[]),mass=d.anchorMass||d.anchors[0].mass;
+ const candidate={anchorMass:mass,source:clone(d.source),anchors:clone(d.anchors),ignored:clone(d.ignored||[])};
+ const fingerprint=anchorListFingerprint(candidate),existing=lists.find(x=>anchorListFingerprint(x)===fingerprint);
+ if(existing)return existing;
+ const first=candidate.anchors[0].prefix,last=candidate.anchors.at(-1).prefix;
+ const entry={id:'anchors-'+Date.now().toString(36)+'-'+Math.random().toString(36).slice(2,9),name:(String(name).trim()||`${mass.toUpperCase()} · ${first}${first!==last?' → '+last:''}`).slice(0,120),created:now,...candidate};
+ validateAnchorList(entry);lists.push(entry);return entry;
+}
+function draftFromAnchorList(entry){
+ validateAnchorList(entry);
+ return{anchorListId:entry.id,source:clone(entry.source),anchorMass:entry.anchorMass,anchors:clone(entry.anchors),ignored:clone(entry.ignored),selected:0,levels:entry.anchorMass==='d'?['d','c']:[entry.anchorMass],extraParents:[]};
+}
+function restoreAnchorLists(app){
+ // Backfill only once. Explicitly deleted lists must not reappear on reopening.
+ if(app.anchorListsVersion===1)return false;
+ app.anchorLists=app.anchorLists||[];
+ for(const value of [...app.surveys,app.draft].filter(Boolean)){
+  if(!value.anchors?.length||value.anchors.length===1&&value.source?.type==='single')continue;
+  const entry=saveAnchorList(app,{...value,anchorMass:value.anchorMass||value.anchor?.mass||value.anchors[0].mass},'',value.created||new Date().toISOString());
+  value.anchorListId=entry.id;
+ }
+ app.anchorListsVersion=1;return true;
+}
+function validateAnchorList(entry){
+ if(!entry||typeof entry.id!=='string'||!entry.id||typeof entry.name!=='string'||!entry.name.trim()||entry.name.length>120||!entry.source||!Array.isArray(entry.anchors)||!entry.anchors.length||!Array.isArray(entry.ignored)||typeof entry.anchorMass!=='string'||entry.anchorMass.length!==1||!MASSES.includes(entry.anchorMass))throw Error('Invalid saved anchor list.');
+ if(entry.source.snapshot!==undefined&&(!Array.isArray(entry.source.snapshot)||entry.source.snapshot.some(x=>typeof x!=='string'&&(!x||typeof x!=='object'||typeof (x.name||x.StarSystem)!=='string'))))throw Error('Invalid saved anchor-list source.');
+ for(const b of entry.anchors){
+  const parsed=b&&parseName(systemName(b,0));
+  if(!parsed||b.mass!==entry.anchorMass||parsed.key!==b.key||parsed.prefix!==b.prefix||JSON.stringify(parsed.xyz)!==JSON.stringify(b.xyz))throw Error('Invalid saved anchor boxel.');
+ }
+ if(new Set(entry.anchors.map(b=>b.key)).size!==entry.anchors.length)throw Error('Duplicate boxels in saved anchor list.');
+ return entry;
+}
 function scopeSections(s){
  const sections=[],ai=MASSES.indexOf(s.anchor.mass);
  for(let i=ai;i>=0;i--)if(s.levels.includes(MASSES[i]))sections.push({mass:MASSES[i],count:8**(ai-i)});
@@ -86,6 +125,7 @@ function metadata(s,i){return s.boxes[i]||(s.boxes[i]={end:null,cursor:0,records
 function newSurvey(draft,now=new Date().toISOString()){
  const anchor=draft.anchors[draft.selected];if(!anchor)throw Error('Choose an anchor boxel.');
  const s={id:'survey-'+Date.now().toString(36)+'-'+Math.random().toString(36).slice(2,7),created:now,source:clone(draft.source),anchor:clone(anchor),anchors:clone(draft.anchors),ignored:clone(draft.ignored||[]),levels:[...draft.levels],extraParents:clone(draft.extraParents||[]),excluded:[],boxes:{},activeBox:0,policy:{providers:['edsm','spansh'],staleDays:0,visitAll:false},liveSystem:null};
+ if(draft.anchorListId)s.anchorListId=draft.anchorListId;
  if(!scopeCount(s))throw Error('Select at least one mass class or parent.');return s;
 }
 function setBound(s,index,value){
@@ -142,6 +182,15 @@ function confirmFullScan(r,confirmed=true,now=new Date().toISOString()){
  if(confirmed)r.manualCompletion={confirmedAt:now,includesBelts:true};else delete r.manualCompletion;
  return true;
 }
+function catalogueTime(value){
+ if(typeof value!=='string'||!value.trim())return '';
+ const text=value.trim(),utc=/^\d{4}-\d\d-\d\d[ T]\d\d:\d\d:\d\d(?:\.\d+)?$/.test(text)?text.replace(' ','T')+'Z':text;
+ const time=Date.parse(utc);return Number.isFinite(time)?new Date(time).toISOString():'';
+}
+function catalogueDateLabel(value,full=false){
+ const date=catalogueTime(value);if(!date)return '';
+ return (full?date.replace('T',' ').replace(/(?:\.000)?Z$/,' UTC'):date.slice(0,10))+(date<'2021-05-19T00:00:00.000Z'?' (pre-Odyssey)':'');
+}
 function catalogueStatus(raw,now=new Date().toISOString()){
  const source=raw||{},bs=Array.isArray(source.bodies)?source.bodies:[],unique=new Map();
  for(const b of bs){const key=bodyKey(b);if(key)unique.set(key,b);}
@@ -151,8 +200,9 @@ function catalogueStatus(raw,now=new Date().toISOString()){
  const belts=stars.flatMap(b=>b.rings),resolved=normal.filter(b=>b.belt).map(b=>beltName(b.name));
  const majorComplete=total>0&&majors.length===total;
  const beltsComplete=majorComplete&&stars.length>0&&belts.every(n=>resolved.some(x=>norm(x)===norm(n)));
- const times=majors.map(b=>Date.parse(b.timestamp)),dated=times.length>0&&times.every(Number.isFinite);
- return{state:'present',name:source.name||source.system_name||'',id64:safeId(source.id64),expected:total,scanned:majors.length,belts:belts.length,beltsResolved:belts.filter(n=>resolved.some(x=>norm(x)===norm(n))).length,complete:beltsComplete,quality:beltsComplete?'Apparently complete':majorComplete?'Major bodies complete; belts unverified':majors.length?'Partial scan data':total?'Body count only':'Coordinates / visit record',updated:dated?new Date(Math.min(...times)).toISOString():'',checked:now};
+ const times=majors.map(b=>Date.parse(catalogueTime(b.timestamp))),dated=times.length>0&&times.every(Number.isFinite);
+ const bodyDates=normal.map(b=>Date.parse(catalogueTime(b.timestamp))).filter(Number.isFinite);
+ return{state:'present',name:source.name||source.system_name||'',id64:safeId(source.id64),expected:total,scanned:majors.length,belts:belts.length,beltsResolved:belts.filter(n=>resolved.some(x=>norm(x)===norm(n))).length,complete:beltsComplete,quality:beltsComplete?'Apparently complete':majorComplete?'Major bodies complete; belts unverified':majors.length?'Partial scan data':total?'Body count only':'Coordinates / visit record',updated:dated?new Date(Math.min(...times)).toISOString():'',latestBodyUpdate:bodyDates.length?new Date(Math.max(...bodyDates)).toISOString():'',checked:now};
 }
 function safeId(id){if(typeof id==='number'&&!Number.isSafeInteger(id))return '';return /^\d+$/.test(String(id??''))?String(id):'';}
 function outcome(r,policy,now=Date.now()){
@@ -230,6 +280,11 @@ function applyJournal(s,e){
 }
 function validateApp(app){
  if(!app||app.schema!==1||!Array.isArray(app.surveys))throw Error('Unsupported survey backup format.');
+ if(app.anchorLists!==undefined){
+  if(!Array.isArray(app.anchorLists))throw Error('Invalid saved anchor lists.');
+  app.anchorLists.forEach(validateAnchorList);
+  if(new Set(app.anchorLists.map(x=>x.id)).size!==app.anchorLists.length)throw Error('Duplicate saved anchor-list identifiers.');
+ }
  for(const s of app.surveys){if(!s.id||!Array.isArray(s.levels)||!s.levels.every(m=>MASSES.includes(m)&&m.length===1&&MASSES.indexOf(m)<=MASSES.indexOf(s.anchor?.mass))||!Array.isArray(s.excluded)||!s.boxes||!s.policy)throw Error('Invalid survey structure.');
   if(!s.policy.providers?.every(p=>['edsm','spansh'].includes(p)))throw Error('Invalid catalogue provider.');
   if(!parseName(systemName(s.anchor,0))||!Number.isSafeInteger(s.activeBox)||!boxAt(s,s.activeBox))throw Error('Invalid anchor or active boxel.');
@@ -242,6 +297,6 @@ function validateApp(app){
   }
  }if(app.activeId&&!app.surveys.some(s=>s.id===app.activeId))throw Error('The active survey is missing.');return app;
 }
-const api={MASSES,norm,clone,parseName,systemName,boxFromXYZ,ancestor,parents,descendant,inputNames,deriveAnchors,scopeSections,scopeCount,boxAt,boxIndex,isIncluded,metadata,newSurvey,setBound,recordAt,normalBody,beltName,localStatus,personalStatus,confirmFullScan,catalogueStatus,safeId,outcome,boxStats,surveyStats,move,iterateBoxel,advanceOnArrival,applyJournal,validateApp,maxSuffix};
+const api={MASSES,norm,clone,parseName,systemName,boxFromXYZ,ancestor,parents,descendant,inputNames,deriveAnchors,saveAnchorList,draftFromAnchorList,restoreAnchorLists,scopeSections,scopeCount,boxAt,boxIndex,isIncluded,metadata,newSurvey,setBound,recordAt,normalBody,beltName,localStatus,personalStatus,confirmFullScan,catalogueTime,catalogueDateLabel,catalogueStatus,safeId,outcome,boxStats,surveyStats,move,iterateBoxel,advanceOnArrival,applyJournal,validateApp,maxSuffix};
 if(typeof module!=='undefined'&&module.exports)module.exports=api;else root.SurveyCore=api;
 })(typeof globalThis!=='undefined'?globalThis:this);

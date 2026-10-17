@@ -2,9 +2,9 @@
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Systematic Boxel Survey</title>
 <style>
 :root{color-scheme:dark;--bg:#0a1016;--card:#111c25;--line:#2b3e4c;--text:#e5eef3;--muted:#a0b3bf;--accent:#edb66c;--good:#72d5bd;--bad:#f69b9b;--blue:#85baff}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:15px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif}button,input,select,textarea{font:inherit}button{cursor:pointer;border:1px solid var(--line);background:#172735;color:var(--text);border-radius:7px;padding:8px 13px;min-height:38px}button:hover{border-color:var(--accent);background:#203343}button:disabled{opacity:.45;cursor:default}.primary{background:var(--accent);border-color:var(--accent);color:#19130c;font-weight:650}.primary:hover{background:#f3c787;color:#19130c}.small{font-size:12px;padding:4px 9px;min-height:29px}.quiet{background:transparent}input,select,textarea{background:#0b151e;border:1px solid #3a5060;border-radius:6px;color:var(--text);padding:9px;max-width:100%}textarea{width:100%;min-height:138px;resize:vertical}input[type=checkbox],input[type=radio]{accent-color:var(--accent);width:18px;height:18px;vertical-align:middle;margin:0 8px 0 0}input[type=number]{width:110px}input[type=text]{width:100%}label{display:block}label.inline{display:inline-flex;align-items:center;gap:3px}h1,h2,h3,p{margin:0}h1{font-size:23px;letter-spacing:-.4px}h2{font-size:21px;margin-bottom:8px}h3{font-size:15px;margin-bottom:9px}p{margin:8px 0;color:var(--muted)}small,.muted{color:var(--muted)}small{font-size:12px}.shell{max-width:1280px;margin:auto;padding:26px 28px 70px}.mast{display:flex;gap:18px;align-items:center;justify-content:space-between;margin-bottom:24px}.eyebrow{font-size:11px;letter-spacing:1.8px;text-transform:uppercase;color:var(--accent);font-weight:700}.row{display:flex;gap:12px;align-items:center;flex-wrap:wrap}.between{justify-content:space-between}.spacer{flex:1}.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:22px;margin-bottom:18px}.grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(280px,.6fr);gap:18px}.grid>.card{margin-bottom:0}.stack>*+*{margin-top:14px}.steps{display:flex;gap:10px;list-style:none;padding:0;margin:0 0 24px}.steps li{flex:1;padding:9px 12px;border-top:2px solid var(--line);color:var(--muted);font-size:13px}.steps .active{border-color:var(--accent);color:var(--text)}.pill{font-size:12px;border:1px solid var(--line);border-radius:20px;padding:3px 10px;display:inline-block}.good{color:var(--good)}.warn{color:var(--accent)}.bad{color:var(--bad)}.notice{padding:12px 15px;border:1px solid #655239;border-radius:8px;background:#211d17;color:#ecd6b8;margin:12px 0}.notice.error{border-color:#824747;color:#ffc3c3;background:#271b20}.notice.success{border-color:#346e61;color:#b0e8da;background:#102721}.mono{font-family:ui-monospace,Consolas,monospace}.target{font-size:25px;overflow-wrap:anywhere;margin:10px 0 5px;letter-spacing:-.5px}.targetCard{border-top:3px solid var(--accent)}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:14px}.stat strong{display:block;font-size:25px;font-weight:600}.stat small{display:block}.progress{height:5px;border-radius:4px;background:#273744;overflow:hidden;margin:15px 0}.progress span{display:block;height:100%;background:var(--good)}table{width:100%;border-collapse:collapse;text-align:left;font-size:13px}th{color:var(--muted);font-weight:500;font-size:11px;letter-spacing:.5px;text-transform:uppercase}th,td{padding:11px 9px;border-bottom:1px solid var(--line);vertical-align:middle}td:first-child,th:first-child{padding-left:0}td:last-child,th:last-child{padding-right:0}.tableWrap{overflow:auto}tr.active{background:#22313b}.layer{border:1px solid var(--line);border-radius:8px;margin-top:10px;padding:13px}.layer .mass{font-size:20px;font-weight:600;min-width:25px}.layer details{margin-top:7px}.layer summary{font-size:12px;color:var(--muted);cursor:pointer}.miniList{max-height:260px;overflow:auto;padding-top:9px}.miniList .row{padding:5px 0}.footer{display:flex;justify-content:space-between;gap:12px;margin-top:20px}.field{margin-bottom:15px}.field>span{display:block;color:var(--muted);font-size:12px;margin-bottom:5px}.count{color:var(--accent);font-size:19px}.catalogue{padding:10px;border-radius:7px;border:1px solid var(--line);flex:1;min-width:160px}.catalogue strong{display:block}.catalogue small{display:block}.tree{padding-left:15px;border-left:1px solid #4a6070;margin:12px 0}.tree .row{padding:6px 0}.toolbar{display:flex;gap:9px;flex-wrap:wrap;align-items:center}.activity{font-size:12px;color:var(--muted);min-height:23px;margin-bottom:10px}.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}:focus-visible{outline:2px solid var(--accent);outline-offset:3px}a{color:var(--blue)}details>summary{cursor:pointer}#toast:empty{display:none}.empty{padding:26px 0;color:var(--muted)}.wrap{overflow-wrap:anywhere}.sourceRadio{padding:10px 12px;border:1px solid var(--line);border-radius:7px}.boundsInput{width:110px!important}.boundName{min-width:230px}#importFile{display:none}.checkLine{margin:10px 0}.log{white-space:pre-wrap;max-height:160px;overflow:auto;font:12px/1.6 ui-monospace,Consolas,monospace;color:var(--muted)}
-.confirmationHint{display:block;margin-top:8px}.sequenceRows{max-height:430px;overflow:auto}.sequenceRows thead{position:sticky;top:0;background:var(--card);z-index:1}
+.confirmationHint{display:block;margin-top:8px}.sequenceRows{max-height:430px;overflow:auto}.sequenceRows td small{display:block}.sequenceRows thead{position:sticky;top:0;background:var(--card);z-index:1}
 @media(max-width:800px){.shell{padding:18px 14px 45px}.grid{grid-template-columns:1fr}.mast{align-items:flex-start}.steps{gap:3px}.steps li{font-size:11px;padding:8px 4px}.stats{grid-template-columns:repeat(2,1fr)}.card{padding:16px}.target{font-size:21px}.mast .toolbar{justify-content:flex-end}th,td{padding:9px 6px}}
-</style></head><body><main class="shell"><header class="mast"><div><div class="eyebrow">JACoB extension · 1.0.7</div><h1>Systematic Boxel Survey</h1><p>Choose a scope. Work through every sequence.</p></div><div class="toolbar"><span id="connection" class="pill">Connecting…</span><button id="export" class="small quiet">Export backup</button><button id="import" class="small quiet">Import backup</button><button id="reset" class="small quiet">Reset tab to defaults</button></div></header><div id="toast" role="status" aria-live="polite"></div><div id="activity" class="activity" aria-live="polite"></div><div id="app"></div><input id="clipboardFile" type="file" accept=".json,application/json" hidden><input id="importFile" type="file" accept=".json,application/json"></main>
+</style></head><body><main class="shell"><header class="mast"><div><div class="eyebrow">JACoB extension · 1.0.8</div><h1>Systematic Boxel Survey</h1><p>Choose a scope. Work through every sequence.</p></div><div class="toolbar"><span id="connection" class="pill">Connecting…</span><button id="export" class="small quiet">Export backup</button><button id="import" class="small quiet">Import backup</button><button id="reset" class="small quiet">Reset tab to defaults</button></div></header><div id="toast" role="status" aria-live="polite"></div><div id="activity" class="activity" aria-live="polite"></div><div id="app"></div><input id="clipboardFile" type="file" accept=".json,application/json" hidden><input id="importFile" type="file" accept=".json,application/json"></main>
 <script>/* Systematic Survey model. No network, DOM or game input.
  * Procedural parser/name formatter and base-26 naming adapted from
  * pseudo6626/JACoB examples/BOXEL-surveyer.html, commit 284f9cc.
@@ -66,6 +66,45 @@ function deriveAnchors(names,mass,single=false){
  if(!anchors.length)throw Error('No eligible source systems remain. Choose systems at or below the anchor mass class.');
  return{anchors,ignored};
 }
+function anchorListFingerprint(value){
+ const source=value.source||{},names=(source.snapshot||inputNames(source.text)).map(x=>norm(typeof x==='string'?x:x.name||x.StarSystem));
+ return JSON.stringify([value.anchorMass,source.type||'single',names,value.anchors.map(b=>b.key)]);
+}
+function saveAnchorList(app,d,name='',now=new Date().toISOString()){
+ if(!d.anchors?.length)throw Error('Identify anchor boxels before saving a list.');
+ const lists=app.anchorLists||(app.anchorLists=[]),mass=d.anchorMass||d.anchors[0].mass;
+ const candidate={anchorMass:mass,source:clone(d.source),anchors:clone(d.anchors),ignored:clone(d.ignored||[])};
+ const fingerprint=anchorListFingerprint(candidate),existing=lists.find(x=>anchorListFingerprint(x)===fingerprint);
+ if(existing)return existing;
+ const first=candidate.anchors[0].prefix,last=candidate.anchors.at(-1).prefix;
+ const entry={id:'anchors-'+Date.now().toString(36)+'-'+Math.random().toString(36).slice(2,9),name:(String(name).trim()||`${mass.toUpperCase()} · ${first}${first!==last?' → '+last:''}`).slice(0,120),created:now,...candidate};
+ validateAnchorList(entry);lists.push(entry);return entry;
+}
+function draftFromAnchorList(entry){
+ validateAnchorList(entry);
+ return{anchorListId:entry.id,source:clone(entry.source),anchorMass:entry.anchorMass,anchors:clone(entry.anchors),ignored:clone(entry.ignored),selected:0,levels:entry.anchorMass==='d'?['d','c']:[entry.anchorMass],extraParents:[]};
+}
+function restoreAnchorLists(app){
+ // Backfill only once. Explicitly deleted lists must not reappear on reopening.
+ if(app.anchorListsVersion===1)return false;
+ app.anchorLists=app.anchorLists||[];
+ for(const value of [...app.surveys,app.draft].filter(Boolean)){
+  if(!value.anchors?.length||value.anchors.length===1&&value.source?.type==='single')continue;
+  const entry=saveAnchorList(app,{...value,anchorMass:value.anchorMass||value.anchor?.mass||value.anchors[0].mass},'',value.created||new Date().toISOString());
+  value.anchorListId=entry.id;
+ }
+ app.anchorListsVersion=1;return true;
+}
+function validateAnchorList(entry){
+ if(!entry||typeof entry.id!=='string'||!entry.id||typeof entry.name!=='string'||!entry.name.trim()||entry.name.length>120||!entry.source||!Array.isArray(entry.anchors)||!entry.anchors.length||!Array.isArray(entry.ignored)||typeof entry.anchorMass!=='string'||entry.anchorMass.length!==1||!MASSES.includes(entry.anchorMass))throw Error('Invalid saved anchor list.');
+ if(entry.source.snapshot!==undefined&&(!Array.isArray(entry.source.snapshot)||entry.source.snapshot.some(x=>typeof x!=='string'&&(!x||typeof x!=='object'||typeof (x.name||x.StarSystem)!=='string'))))throw Error('Invalid saved anchor-list source.');
+ for(const b of entry.anchors){
+  const parsed=b&&parseName(systemName(b,0));
+  if(!parsed||b.mass!==entry.anchorMass||parsed.key!==b.key||parsed.prefix!==b.prefix||JSON.stringify(parsed.xyz)!==JSON.stringify(b.xyz))throw Error('Invalid saved anchor boxel.');
+ }
+ if(new Set(entry.anchors.map(b=>b.key)).size!==entry.anchors.length)throw Error('Duplicate boxels in saved anchor list.');
+ return entry;
+}
 function scopeSections(s){
  const sections=[],ai=MASSES.indexOf(s.anchor.mass);
  for(let i=ai;i>=0;i--)if(s.levels.includes(MASSES[i]))sections.push({mass:MASSES[i],count:8**(ai-i)});
@@ -93,6 +132,7 @@ function metadata(s,i){return s.boxes[i]||(s.boxes[i]={end:null,cursor:0,records
 function newSurvey(draft,now=new Date().toISOString()){
  const anchor=draft.anchors[draft.selected];if(!anchor)throw Error('Choose an anchor boxel.');
  const s={id:'survey-'+Date.now().toString(36)+'-'+Math.random().toString(36).slice(2,7),created:now,source:clone(draft.source),anchor:clone(anchor),anchors:clone(draft.anchors),ignored:clone(draft.ignored||[]),levels:[...draft.levels],extraParents:clone(draft.extraParents||[]),excluded:[],boxes:{},activeBox:0,policy:{providers:['edsm','spansh'],staleDays:0,visitAll:false},liveSystem:null};
+ if(draft.anchorListId)s.anchorListId=draft.anchorListId;
  if(!scopeCount(s))throw Error('Select at least one mass class or parent.');return s;
 }
 function setBound(s,index,value){
@@ -149,6 +189,15 @@ function confirmFullScan(r,confirmed=true,now=new Date().toISOString()){
  if(confirmed)r.manualCompletion={confirmedAt:now,includesBelts:true};else delete r.manualCompletion;
  return true;
 }
+function catalogueTime(value){
+ if(typeof value!=='string'||!value.trim())return '';
+ const text=value.trim(),utc=/^\d{4}-\d\d-\d\d[ T]\d\d:\d\d:\d\d(?:\.\d+)?$/.test(text)?text.replace(' ','T')+'Z':text;
+ const time=Date.parse(utc);return Number.isFinite(time)?new Date(time).toISOString():'';
+}
+function catalogueDateLabel(value,full=false){
+ const date=catalogueTime(value);if(!date)return '';
+ return (full?date.replace('T',' ').replace(/(?:\.000)?Z$/,' UTC'):date.slice(0,10))+(date<'2021-05-19T00:00:00.000Z'?' (pre-Odyssey)':'');
+}
 function catalogueStatus(raw,now=new Date().toISOString()){
  const source=raw||{},bs=Array.isArray(source.bodies)?source.bodies:[],unique=new Map();
  for(const b of bs){const key=bodyKey(b);if(key)unique.set(key,b);}
@@ -158,8 +207,9 @@ function catalogueStatus(raw,now=new Date().toISOString()){
  const belts=stars.flatMap(b=>b.rings),resolved=normal.filter(b=>b.belt).map(b=>beltName(b.name));
  const majorComplete=total>0&&majors.length===total;
  const beltsComplete=majorComplete&&stars.length>0&&belts.every(n=>resolved.some(x=>norm(x)===norm(n)));
- const times=majors.map(b=>Date.parse(b.timestamp)),dated=times.length>0&&times.every(Number.isFinite);
- return{state:'present',name:source.name||source.system_name||'',id64:safeId(source.id64),expected:total,scanned:majors.length,belts:belts.length,beltsResolved:belts.filter(n=>resolved.some(x=>norm(x)===norm(n))).length,complete:beltsComplete,quality:beltsComplete?'Apparently complete':majorComplete?'Major bodies complete; belts unverified':majors.length?'Partial scan data':total?'Body count only':'Coordinates / visit record',updated:dated?new Date(Math.min(...times)).toISOString():'',checked:now};
+ const times=majors.map(b=>Date.parse(catalogueTime(b.timestamp))),dated=times.length>0&&times.every(Number.isFinite);
+ const bodyDates=normal.map(b=>Date.parse(catalogueTime(b.timestamp))).filter(Number.isFinite);
+ return{state:'present',name:source.name||source.system_name||'',id64:safeId(source.id64),expected:total,scanned:majors.length,belts:belts.length,beltsResolved:belts.filter(n=>resolved.some(x=>norm(x)===norm(n))).length,complete:beltsComplete,quality:beltsComplete?'Apparently complete':majorComplete?'Major bodies complete; belts unverified':majors.length?'Partial scan data':total?'Body count only':'Coordinates / visit record',updated:dated?new Date(Math.min(...times)).toISOString():'',latestBodyUpdate:bodyDates.length?new Date(Math.max(...bodyDates)).toISOString():'',checked:now};
 }
 function safeId(id){if(typeof id==='number'&&!Number.isSafeInteger(id))return '';return /^\d+$/.test(String(id??''))?String(id):'';}
 function outcome(r,policy,now=Date.now()){
@@ -237,6 +287,11 @@ function applyJournal(s,e){
 }
 function validateApp(app){
  if(!app||app.schema!==1||!Array.isArray(app.surveys))throw Error('Unsupported survey backup format.');
+ if(app.anchorLists!==undefined){
+  if(!Array.isArray(app.anchorLists))throw Error('Invalid saved anchor lists.');
+  app.anchorLists.forEach(validateAnchorList);
+  if(new Set(app.anchorLists.map(x=>x.id)).size!==app.anchorLists.length)throw Error('Duplicate saved anchor-list identifiers.');
+ }
  for(const s of app.surveys){if(!s.id||!Array.isArray(s.levels)||!s.levels.every(m=>MASSES.includes(m)&&m.length===1&&MASSES.indexOf(m)<=MASSES.indexOf(s.anchor?.mass))||!Array.isArray(s.excluded)||!s.boxes||!s.policy)throw Error('Invalid survey structure.');
   if(!s.policy.providers?.every(p=>['edsm','spansh'].includes(p)))throw Error('Invalid catalogue provider.');
   if(!parseName(systemName(s.anchor,0))||!Number.isSafeInteger(s.activeBox)||!boxAt(s,s.activeBox))throw Error('Invalid anchor or active boxel.');
@@ -249,7 +304,7 @@ function validateApp(app){
   }
  }if(app.activeId&&!app.surveys.some(s=>s.id===app.activeId))throw Error('The active survey is missing.');return app;
 }
-const api={MASSES,norm,clone,parseName,systemName,boxFromXYZ,ancestor,parents,descendant,inputNames,deriveAnchors,scopeSections,scopeCount,boxAt,boxIndex,isIncluded,metadata,newSurvey,setBound,recordAt,normalBody,beltName,localStatus,personalStatus,confirmFullScan,catalogueStatus,safeId,outcome,boxStats,surveyStats,move,iterateBoxel,advanceOnArrival,applyJournal,validateApp,maxSuffix};
+const api={MASSES,norm,clone,parseName,systemName,boxFromXYZ,ancestor,parents,descendant,inputNames,deriveAnchors,saveAnchorList,draftFromAnchorList,restoreAnchorLists,scopeSections,scopeCount,boxAt,boxIndex,isIncluded,metadata,newSurvey,setBound,recordAt,normalBody,beltName,localStatus,personalStatus,confirmFullScan,catalogueTime,catalogueDateLabel,catalogueStatus,safeId,outcome,boxStats,surveyStats,move,iterateBoxel,advanceOnArrival,applyJournal,validateApp,maxSuffix};
 if(typeof module!=='undefined'&&module.exports)module.exports=api;else root.SurveyCore=api;
 })(typeof globalThis!=='undefined'?globalThis:this);
 </script><script>/* JACoB SDK adapters. The host owns files, journal detection, input and overlays. */
@@ -425,6 +480,24 @@ function createBridge(Elite,notify=()=>{}){
   const full={...raw,...dump.system,id64:id,bodyCount:raw.bodyCount??raw.body_count??dump.system.bodyCount};
   return C.catalogueStatus(full);
  }
+ const discoveryRequests=new WeakMap();
+ async function edsmDiscovery(s,i,seq,{stopped=()=>false}={}){
+  const r=C.recordAt(s,i,seq,false);if(!r||!s.policy.providers.includes('edsm')||r.catalogues.edsm?.state!=='present'||stopped())return;
+  const name=r.alias||C.systemName(C.boxAt(s,i),seq),cached=r.edsmDiscovery;
+  if(cached?.name===name&&(cached.commander||Date.now()-Date.parse(cached.checked)<(cached.error?60000:86400000)))return cached;
+  if(discoveryRequests.has(r))return discoveryRequests.get(r);
+  const request=(async()=>{
+   try{
+    const raw=await fetchJSON('https://www.edsm.net/api-system-v1/traffic?systemName='+encodeURIComponent(name),'edsm');
+    if(stopped())return;
+    if(!raw||C.norm(raw.name)!==C.norm(name)||r.id64&&C.safeId(raw.id64)!==r.id64)throw Error('EDSM attribution response did not match this system.');
+    const commander=typeof raw.discovery?.commander==='string'?raw.discovery.commander.trim().replace(/[\u0000-\u001f\u007f]/g,' '):'';
+    // This is EDSM system discovery attribution, never body discovery or visit evidence.
+    return r.edsmDiscovery={name,commander,date:C.catalogueTime(raw.discovery?.date),checked:new Date().toISOString()};
+   }catch(e){if(!stopped())return r.edsmDiscovery={name,commander:'',checked:new Date().toISOString(),error:e.message||String(e)};}
+  })();
+  discoveryRequests.set(r,request);try{return await request;}finally{discoveryRequests.delete(r);}
+ }
  async function edsmBatch(s,i,sequences){
   const b=C.boxAt(s,i),names=sequences.map(seq=>C.recordAt(s,i,seq).alias||C.systemName(b,seq));
   const query=names.map(n=>'systemName[]='+encodeURIComponent(n)).join('&');
@@ -546,7 +619,10 @@ function createBridge(Elite,notify=()=>{}){
  async function overlay(s,enabled){
   if(!enabled)return Elite.overlay.clear();const b=C.boxAt(s,s.activeBox),m=C.metadata(s,s.activeBox),st=C.boxStats(s,s.activeBox),overall=C.surveyStats(s),r=C.recordAt(s,s.activeBox,m.cursor,false);
   const progress=stats=>stats.total===null?`${stats.handled} handled; end unknown`:`${stats.handled}/${stats.total} (${stats.percent.toFixed(1)}%)`;
-  const sections=[`Total survey: ${progress(overall)}`,`Current boxel survey: ${b.prefix} - ${progress(st)}`,`Next: ${C.systemName(b,m.cursor)}`,...s.policy.providers.map(p=>`${p==='edsm'?'EDSM':'Spansh'}: ${r?.catalogues[p]?.state||'unchecked'}`)];
+  const sections=[`Total survey: ${progress(overall)}`,`Current boxel survey: ${b.prefix} - ${progress(st)}`,`Next: ${C.systemName(b,m.cursor)}`,...s.policy.providers.map(p=>{
+   const c=r?.catalogues[p],who=p==='edsm'&&c?.state==='present'?r?.edsmDiscovery?.commander:'',date=C.catalogueTime(c?.latestBodyUpdate);
+   return `${p==='edsm'?'EDSM':'Spansh'}: ${c?.state||'unchecked'}${who?' ['+who+']':''}${date?' · body update '+C.catalogueDateLabel(date):''}`;
+  })];
   if(s.liveSystem&&!s.liveSystem.outside&&Number.isSafeInteger(s.liveSystem.i)&&Number.isSafeInteger(s.liveSystem.seq)){const current=C.recordAt(s,s.liveSystem.i,s.liveSystem.seq,false);if(current)sections.push(`Here: ${C.localStatus(current).label}`);}
   else if(s.liveSystem?.outside&&s.liveSystem.name)sections.push(`Here: ${s.liveSystem.name} (outside survey)`);
   const text=sections.join(' | ');let fontSize=18,hud2=false;
@@ -581,7 +657,7 @@ function createBridge(Elite,notify=()=>{}){
    return actual;
   }finally{off?.();}
  }
- return{load,save,reset,route,history,check,checkBoxel,copy,configureClipboard,disconnectClipboard,hasClipboardHelper:()=>!!clipboardConfig,overlayDescription:()=>overlayDescription,overlay,plot,stopPlot,fetchJSON,edsmBatch,spansh};
+ return{load,save,reset,route,history,check,checkBoxel,copy,configureClipboard,disconnectClipboard,hasClipboardHelper:()=>!!clipboardConfig,overlayDescription:()=>overlayDescription,overlay,plot,stopPlot,fetchJSON,edsmBatch,edsmDiscovery,spansh};
 }
 if(typeof module!=='undefined'&&module.exports)module.exports={createBridge,importBackup};else root.SurveyBridge={createBridge,importBackup};
 })(typeof globalThis!=='undefined'?globalThis:this);
@@ -589,7 +665,7 @@ if(typeof module!=='undefined'&&module.exports)module.exports={createBridge,impo
 'use strict';
 const C=SurveyCore,$=s=>document.querySelector(s),esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const hasHost=typeof Elite!=='undefined',supported=hasHost&&!!Elite.store?.batch&&!!Elite.net?.fetchQueued;
-const defaults=()=>({schema:1,surveys:[],activeId:null,ui:{step:0},options:{autoCopy:true,autoPlot:false,autoIterate:false,overlay:false}});
+const defaults=()=>({schema:1,surveys:[],anchorLists:[],anchorListsVersion:1,activeId:null,ui:{step:0},options:{autoCopy:true,autoPlot:false,autoIterate:false,overlay:false}});
 let app=defaults(),bridge=supported?SurveyBridge.createBridge(Elite,activity):null,resetting=false;
 let routeRows=[],busy=false,stop=false,saveError=false,fatal=false,journalReady=false,replaying=false,plotting=false,renderTimer=null,saveTimer=null,boundsPage=0,boxPage=0,tablePage=null;
 let targetGeneration=0,pendingTarget=null,saveNotice='',clipboardNotice='';
@@ -612,21 +688,32 @@ function progress(st){return st.total===null?'':`<div class="progress" aria-labe
 function copyBtn(name,label='Copy start'){return`<button class="small quiet" data-copy="${esc(name)}">${label}</button>`;}
 function parentTree(b){return C.parents(b).map(p=>`<div class="row between"><span><b>${p.mass.toUpperCase()}</b> <span class="mono">${esc(p.prefix)}</span></span>${copyBtn(C.systemName(p,0))}</div>`).join('');}
 function render(){
- $('#app').inert=resetting;$('#reset').disabled=resetting||busy||plotting||replaying;$('#import').disabled=resetting;$('#export').disabled=resetting||(!app.surveys.length&&!app.draftSurvey);
+ $('#app').inert=resetting;$('#reset').disabled=resetting||busy||plotting||replaying;$('#import').disabled=resetting;$('#export').disabled=resetting||(!app.surveys.length&&!app.draftSurvey&&!app.anchorLists?.length);
  if(fatal){$('#app').innerHTML='<div class="card"><h2>Saved survey could not be loaded</h2><p>The saved data has not been overwritten. You can import a previously exported backup to recover.</p></div>';return;}
  const step=app.ui?.step??0;$('#app').innerHTML=stepBar(step)+(step===0?sourceUI():step===1?nestingUI():step===2?boundsUI():dashboardUI());
 }
+function anchorListsUI(){
+ const lists=app.anchorLists||[];if(!lists.length)return '';
+ return `<section class="card"><h2>Saved anchor lists</h2><p>Open a saved sequence to choose another anchor. Lists keep their original order and source, even after your route changes.</p><div class="tableWrap"><table><thead><tr><th>List</th><th>Anchors</th><th>With surveys</th><th></th></tr></thead><tbody>${lists.map(list=>{const started=list.anchors.filter(b=>app.surveys.some(s=>s.anchor.key===b.key)).length;return`<tr><td class="wrap">${esc(list.name)}</td><td>${list.anchors.length}</td><td>${started} / ${list.anchors.length}</td><td><button class="small" data-open-anchor-list="${esc(list.id)}" ${busy?'disabled':''}>Open list</button> <button class="small quiet" data-remove-anchor-list="${esc(list.id)}" ${busy?'disabled':''}>Remove list</button></td></tr>`;}).join('')}</tbody></table></div><small>Removing a list keeps all surveys and their progress. Saved lists are included in Export backup.</small></section>`;
+}
 function sourceUI(){
- const d=draft(),disabled=!routeRows.length;
- return `<div class="card"><div class="row between"><div><div class="eyebrow">Survey source</div><h2>A system, a list, or your current route</h2></div>${active()?'<button data-action="resume">Resume active survey</button>':''}</div>
- <p>Route order is preserved. Repeated anchor boxels appear once, at their first crossing.</p>
+ const d=draft(),disabled=!routeRows.length,list=(app.anchorLists||[]).find(x=>x.id===d.anchorListId),savedRoute=!!list&&d.source.type==='route';
+ const shownRoute=savedRoute?(d.source.snapshot||[]):routeRows;
+ return `${anchorListsUI()}<div class="card"><div class="row between"><div><div class="eyebrow">Survey source</div><h2>A system, a list, or your current route</h2></div>${active()?'<button data-action="resume">Resume active survey</button>':''}</div>
+ <p>Route order is preserved. Repeated anchor boxels appear once, at their first crossing. Calculated route and system lists are saved automatically.</p>
  <div class="row" style="margin:18px 0">${[['single','Single system'],['list','System list / string'],['route','Current GalMap route']].map(([v,l])=>`<label class="sourceRadio"><input type="radio" name="sourceType" value="${v}" ${d.source.type===v?'checked':''} ${v==='route'&&disabled?'disabled':''}>${l}</label>`).join('')}</div>
- ${disabled?'<small>No active GalMap route detected. The route option becomes available when JACoB reads one.</small>':`<small>${routeRows.length} systems in the current route. Its scope will be snapshotted when you continue.</small>`}
- <div class="field" style="margin-top:15px"><span>${d.source.type==='single'?'Procedural system name':'System names · one per line, or separated by arrows, commas or semicolons'}</span>${d.source.type==='route'?`<div class="mono wrap">${esc(routeRows.slice(0,3).map(x=>x.name).join(' → '))}${routeRows.length>3?' → …':''}</div>`:`<textarea id="sourceText" placeholder="Pyurks OE-E d13-0" aria-label="Source system names">${esc(d.source.text)}</textarea>`}</div>
- <div class="row"><label class="inline">Anchor mass <select id="anchorMass">${C.MASSES.split('').map(m=>`<option value="${m}" ${d.anchorMass===m?'selected':''}>${m.toUpperCase()} · ${10*2**C.MASSES.indexOf(m)} ly</option>`).join('')}</select></label><button class="primary" data-action="derive">Identify anchor boxels</button></div>
+ ${savedRoute?`<small>Saved route snapshot · ${shownRoute.length} systems. You can choose another anchor without a live GalMap route.</small>`:disabled?'<small>No active GalMap route detected. The route option becomes available when JACoB reads one.</small>':`<small>${routeRows.length} systems in the current route. Its scope will be snapshotted when you continue.</small>`}
+ <div class="field" style="margin-top:15px"><span>${d.source.type==='single'?'Procedural system name':'System names · one per line, or separated by arrows, commas or semicolons'}</span>${d.source.type==='route'?`<div class="mono wrap">${esc(shownRoute.slice(0,3).map(x=>typeof x==='string'?x:x.name).join(' → '))}${shownRoute.length>3?' → …':''}</div>`:`<textarea id="sourceText" placeholder="Pyurks OE-E d13-0" aria-label="Source system names">${esc(d.source.text)}</textarea>`}</div>
+ <div class="row"><label class="inline">Anchor mass <select id="anchorMass">${C.MASSES.split('').map(m=>`<option value="${m}" ${d.anchorMass===m?'selected':''}>${m.toUpperCase()} · ${10*2**C.MASSES.indexOf(m)} ly</option>`).join('')}</select></label><button class="primary" data-action="derive" ${d.source.type==='route'&&disabled?'disabled':''}>${savedRoute?'Recalculate from current route':'Identify anchor boxels'}</button></div>
  ${C.MASSES.indexOf(d.anchorMass)>3?'<div class="notice">Higher-mass boxels cover much larger volumes and may require substantially more travel and time to enumerate and complete.</div>':''}</div>
- ${d.anchors.length?`<div class="grid"><section class="card"><h2>Choose your anchor</h2><p>${d.anchors.length} distinct boxels, in first-occurrence order.</p><div class="tableWrap"><table><thead><tr><th>Use</th><th>Boxel</th><th>Source systems</th><th>Start</th></tr></thead><tbody>${d.anchors.map((b,i)=>`<tr><td><input aria-label="Select ${esc(b.prefix)}" type="radio" name="selectedAnchor" value="${i}" ${d.selected===i?'checked':''}></td><td class="mono">${esc(b.prefix)}</td><td>${b.count}</td><td>${copyBtn(C.systemName(b,0),'Copy')}</td></tr>`).join('')}</tbody></table></div><div class="footer"><span></span><button class="primary" data-action="nesting">Choose nesting levels →</button></div></section><aside class="card"><h3>Enclosing parents</h3><div class="tree">${parentTree(d.anchors[d.selected])}</div><p>Parents are context here. You can add a parent’s own sequence on the next screen.</p></aside></div>`:''}
+ ${d.anchors.length?`<div class="grid"><section class="card"><h2>Choose your anchor</h2><p>${d.anchors.length} distinct boxels, in first-occurrence order.</p>
+ <div class="row" style="margin-bottom:15px"><label class="field spacer">Anchor list name<input id="anchorListName" type="text" maxlength="120" value="${esc(list?.name||'')}" placeholder="Name this anchor list"></label><button data-action="saveAnchorList">${list?'Save name':'Save anchor list'}</button></div>
+ <div class="tableWrap"><table><thead><tr><th>Use</th><th>Boxel</th><th>Source systems</th><th>Survey</th><th>Start</th></tr></thead><tbody>${d.anchors.map((b,i)=>{const surveys=app.surveys.filter(s=>s.anchor.key===b.key);return`<tr><td><input aria-label="Select ${esc(b.prefix)}" type="radio" name="selectedAnchor" value="${i}" ${d.selected===i?'checked':''}></td><td class="mono">${esc(b.prefix)}</td><td>${b.count??'—'}</td><td>${surveys.length?`${surveys.length} created <button class="small" data-open-survey="${esc(surveys.at(-1).id)}" ${busy?'disabled':''}>Open survey</button>`:'Not started'}</td><td>${copyBtn(C.systemName(b,0),'Copy')}</td></tr>`;}).join('')}</tbody></table></div><div class="footer"><span></span><button class="primary" data-action="nesting">Choose nesting levels →</button></div></section><aside class="card"><h3>Enclosing parents</h3><div class="tree">${parentTree(d.anchors[d.selected])}</div><p>Parents are context here. You can add a parent’s own sequence on the next screen.</p></aside></div>`:''}
  ${d.ignored.length?`<details class="card"><summary>${d.ignored.length} source entries ignored</summary><p>Higher-mass entries cannot identify a smaller anchor from their names. Authored or unsupported names are also omitted.</p>${d.ignored.map(x=>`<p><span class="mono">${esc(x.name)}</span> · ${esc(x.reason)}</p>`).join('')}</details>`:''}`;
+}
+function openAnchorList(id){
+ if(busy||replaying)return;const list=(app.anchorLists||[]).find(x=>x.id===id);if(!list)throw Error('Saved anchor list not found.');
+ app.draft=C.draftFromAnchorList(list);delete app.draftSurvey;app.ui={step:0};boundsPage=0;changed();render();
 }
 function nestingUI(){
  const d=draft(),b=d.anchors[d.selected];if(!b){app.ui.step=0;return sourceUI();}
@@ -647,12 +734,16 @@ function boundsUI(){
  <p>Missing catalogue records never establish the end of a boxel. Mixed bounded and unbounded boxels are supported.</p><div class="footer"><button data-action="${app.ui.editBounds?'resume':'backNesting'}">← ${app.ui.editBounds?'Dashboard':'Nesting'}</button><button class="primary" data-action="start">${app.ui.editBounds?'Save bounds & return':'Start survey — empty bounds are fine'}</button></div></div>`;
 }
 function catalogueLabel(c){return c?.state==='unknown'&&c.searchLimited?c.quality:c?.state||'Unchecked';}
-function catHTML(r,p){const c=r?.catalogues[p],title=p==='edsm'?'EDSM':'Spansh';return`<div class="catalogue"><small>${title}</small><strong class="${c?.state==='absent'?'warn':c?.complete?'good':''}">${esc(c?.state==='present'?c.quality:catalogueLabel(c))}</strong>${c?.expected!==null&&c?.expected!==undefined?`<small>${c.scanned||0} scanned bodies; expected ${c.expected}</small>`:''}${c?.error?`<small class="bad">${esc(c.error)}</small>`:''}${c?.checked?`<small>Checked ${esc(new Date(c.checked).toLocaleString())}</small>`:''}</div>`;}
+function catalogueCell(r,p){
+ const c=r?.catalogues[p],who=p==='edsm'&&c?.state==='present'?r?.edsmDiscovery?.commander:'',date=C.catalogueTime(c?.latestBodyUpdate);
+ return esc(catalogueLabel(c))+(who?` <span title="EDSM system discovery attribution">[${esc(who)}]</span>`:'')+(date?`<small>Body update: ${esc(C.catalogueDateLabel(date))}</small>`:'');
+}
+function catHTML(r,p){const c=r?.catalogues[p],who=p==='edsm'&&c?.state==='present'?r?.edsmDiscovery?.commander:'',date=C.catalogueTime(c?.latestBodyUpdate),title=p==='edsm'?'EDSM':'Spansh';return`<div class="catalogue"><small>${title}${who?` [${esc(who)}]`:""}</small><strong class="${c?.state==='absent'?'warn':c?.complete?'good':''}">${esc(c?.state==='present'?c.quality:catalogueLabel(c))}</strong>${c?.expected!==null&&c?.expected!==undefined?`<small>${c.scanned||0} scanned bodies; expected ${c.expected}</small>`:''}${c?.error?`<small class="bad">${esc(c.error)}</small>`:''}${c?.state==='present'?`<small>Latest reported body update: ${date?esc(C.catalogueDateLabel(date,true)):c.needsDetails?'details not requested':'unavailable'}</small>`:''}${p==='edsm'&&r?.edsmDiscovery?.error?'<small>EDSM attribution unavailable; catalogue result unchanged.</small>':''}${c?.checked?`<small>Checked ${esc(new Date(c.checked).toLocaleString())}</small>`:''}</div>`;}
 function dashboardUI(){
  const s=active();if(!s){app.ui.step=0;return sourceUI();}const b=C.boxAt(s,s.activeBox),m=C.metadata(s,s.activeBox),r=C.recordAt(s,s.activeBox,m.cursor,false),bs=C.boxStats(s,s.activeBox),ss=C.surveyStats(s),name=C.systemName(b,m.cursor);
  const page=tablePage??Math.floor(m.cursor/25),start=page*25,end=m.end===null?start+25:Math.min(m.end+1,start+25),totalBoxes=C.scopeCount(s),bp=boxPage*25,be=Math.min(totalBoxes,bp+25),liveAny=s.liveSystem,live=liveAny&&!liveAny.outside&&Number.isSafeInteger(liveAny.i)&&Number.isSafeInteger(liveAny.seq)?liveAny:null,current=live?C.recordAt(s,live.i,live.seq,false):null;
  const liveHTML=live?`<p class="mono">${esc(live.name)}</p><strong class="${current&&C.localStatus(current).complete?'good':'warn'}">${current?esc(C.localStatus(current).label):'No survey evidence'}</strong>${current?`<p>${C.localStatus(current).majorScans} major-body scans${current.journal.bodyCount!=null?'; '+current.journal.bodyCount+' expected':''}. ${current.journal.resolvedBelts.length} belt groups resolved; ${current.journal.expectedBelts.length} known.</p><button class="small" data-action="${current.manualCompletion?'undoFullScan':'confirmFullScan'}">${current.manualCompletion?'Undo full-scan confirmation':'Confirm full scan (including belts)'}</button><small class="confirmationHint">Applies to ${esc(live.name)}, your current in-game system. Use after checking all bodies and any belts; no new FSS event is needed.</small>`:''}`:liveAny?.outside?`<p class="mono">${esc(liveAny.name||'Unknown system')}</p><strong class="muted">Outside selected survey scope</strong>`:'<p>Waiting for a journal location inside the selected scope.</p>';
- return `<div class="row between" style="margin-bottom:15px"><label class="inline">Survey <select id="surveySelect">${app.surveys.map(x=>`<option value="${esc(x.id)}" ${x.id===s.id?'selected':''}>${esc(x.anchor.prefix)} · ${new Date(x.created).toLocaleDateString()}</option>`).join('')}</select></label><div class="toolbar"><button data-action="newSurvey">New survey</button><button data-action="editBounds">Edit final bounds</button></div></div>
+ return `<div class="row between" style="margin-bottom:15px"><label class="inline">Survey <select id="surveySelect">${app.surveys.map(x=>`<option value="${esc(x.id)}" ${x.id===s.id?'selected':''}>${esc(x.anchor.prefix)} · ${new Date(x.created).toLocaleDateString()}</option>`).join('')}</select></label><div class="toolbar">${(app.anchorLists||[]).length?`<button data-action="anchorLists" ${busy?'disabled':''}>Saved anchor lists</button>`:''}${(app.anchorLists||[]).some(x=>x.id===s.anchorListId)?`<button data-open-anchor-list="${esc(s.anchorListId)}" ${busy?'disabled':''}>Return to anchor list</button>`:''}<button data-action="newSurvey">New survey</button><button data-action="editBounds">Edit final bounds</button></div></div>
  <section class="card"><div class="row between"><div><div class="eyebrow">Overall survey</div><h2>${s.levels.map(x=>x.toUpperCase()).join(' + ')}${s.extraParents.length?' + parents':''}</h2></div><span class="pill">${ss.total===null?'Final bounds partly or wholly unknown':'All final bounds supplied'}</span></div>
  <div class="stats"><div class="stat"><strong>${ss.count.toLocaleString()}</strong><small>selected boxels</small></div><div class="stat"><strong>${ss.complete}</strong><small>complete boxels</small></div><div class="stat"><strong>${ss.total===null?ss.handled:ss.handled+' / '+ss.total}</strong><small>systems handled${ss.total===null?' · denominator unknown':''}</small></div><div class="stat"><strong>${ss.attention}</strong><small>checked systems requiring visits</small></div></div>${progress(ss)}<p>${ss.processed} systems processed. ${ss.total===null?'No overall completion percentage until every included boxel has a final suffix.':ss.percent.toFixed(1)+'% handled under the current survey policy.'}</p></section>
  <div class="grid"><section class="card targetCard"><div class="row between"><div class="eyebrow">Current target · ${b.mass.toUpperCase()} mass</div><span class="pill">${bs.total===null?'End unknown':`Range 0–${m.end}`}</span></div><div class="target mono">${esc(name)}</div>${r?.alias&&C.norm(r.alias)!==C.norm(name)?`<p>Catalogue / in-game name: <b>${esc(r.alias)}</b></p>`:''}<p>${esc(C.outcome(r,s.policy).reason)}</p>
@@ -661,7 +752,7 @@ function dashboardUI(){
  <div class="toolbar" style="margin-top:15px"><button data-action="checkTarget" ${busy||!bridge||!s.policy.providers.length?'disabled':''}>Check target</button><button data-action="checkPage" ${busy||!bridge||!s.policy.providers.length?'disabled':''}>Check next 25</button><button data-action="checkBox" ${busy||!bridge||m.end===null||!s.policy.providers.length?'disabled':''}>Check entire boxel</button>${busy?'<button data-action="stop">Stop after request</button>':''}</div><small>Whole-boxel checks find catalogue matches in bulk, then request scan details only when they can affect the visit decision.</small></section>
  <aside class="card"><div class="eyebrow">Active boxel</div><h3 class="mono" style="margin-top:8px">${esc(b.prefix)}</h3><p>${bs.total===null?`${bs.handled} handled · final system unknown`:`${bs.handled} / ${bs.total} handled · ${bs.percent.toFixed(1)}%`}</p>${progress(bs)}<p>${bs.processed} processed · ${bs.attention} requiring visits</p><p>Highest recorded suffix: ${bs.highest>=0?bs.highest:'none'}</p>
  <hr style="border:0;border-top:1px solid var(--line);margin:18px 0"><h3>Current in-game system</h3>${liveHTML}<p><small>${journalReady?'Journal connected. Arrival advances the target; FSS and belts update the visited system independently.':'Journal not available yet. Check JACoB’s journal directory setting.'}</small></p></aside></div>
- <section class="card" style="margin-top:18px"><div class="row between"><h3>Sequence · ${esc(b.prefix)}</h3><div class="toolbar"><button class="small" data-action="seqPrev" ${page===0?'disabled':''}>←</button><span class="muted">${start}–${end-1}</span><button class="small" data-action="seqNext" ${m.end!==null&&end>m.end?'disabled':''}>→</button></div></div><div class="tableWrap sequenceRows"><table><thead><tr><th>Suffix</th><th>State</th><th>Personal record</th><th>EDSM</th><th>Spansh</th><th>Target</th></tr></thead><tbody>${Array.from({length:Math.max(0,end-start)},(_,n)=>{const seq=start+n,rec=C.recordAt(s,s.activeBox,seq,false),o=C.outcome(rec,s.policy);return`<tr class="${seq===m.cursor?'active':''}"><td>${seq}</td><td class="${o.handled?'good':o.kind==='attention'?'warn':'muted'}">${esc(o.reason)}</td><td>${esc(C.personalStatus(rec))}</td><td>${esc(rec?.catalogues.edsm?.state||'Unchecked')}</td><td>${esc(catalogueLabel(rec?.catalogues.spansh))}</td><td><button class="small" data-target="${seq}">Select</button> ${copyBtn(rec?.alias||C.systemName(b,seq),'Copy')} ${rec?.journal.visited?`<button class="small quiet" data-confirm-scan="${seq}" title="${esc(C.systemName(b,seq))} · includes all bodies and any belts">${rec.manualCompletion?'Undo confirmation':'Confirm full scan'}</button>`:''}</td></tr>`;}).join('')}</tbody></table></div></section>
+ <section class="card" style="margin-top:18px"><div class="row between"><h3>Sequence · ${esc(b.prefix)}</h3><div class="toolbar"><button class="small" data-action="seqPrev" ${page===0?'disabled':''}>←</button><span class="muted">${start}–${end-1}</span><button class="small" data-action="seqNext" ${m.end!==null&&end>m.end?'disabled':''}>→</button></div></div><div class="tableWrap sequenceRows"><table><thead><tr><th>Suffix</th><th>State</th><th>Personal record</th><th>EDSM</th><th>Spansh</th><th>Target</th></tr></thead><tbody>${Array.from({length:Math.max(0,end-start)},(_,n)=>{const seq=start+n,rec=C.recordAt(s,s.activeBox,seq,false),o=C.outcome(rec,s.policy);return`<tr class="${seq===m.cursor?'active':''}"><td>${seq}</td><td class="${o.handled?'good':o.kind==='attention'?'warn':'muted'}">${esc(o.reason)}</td><td>${esc(C.personalStatus(rec))}</td><td class="wrap">${catalogueCell(rec,'edsm')}</td><td class="wrap">${catalogueCell(rec,'spansh')}</td><td><button class="small" data-target="${seq}">Select</button> ${copyBtn(rec?.alias||C.systemName(b,seq),'Copy')} ${rec?.journal.visited?`<button class="small quiet" data-confirm-scan="${seq}" title="${esc(C.systemName(b,seq))} · includes all bodies and any belts">${rec.manualCompletion?'Undo confirmation':'Confirm full scan'}</button>`:''}</td></tr>`;}).join('')}</tbody></table></div></section>
  <div class="grid"><section class="card"><h3>Survey boxels</h3><div class="tableWrap"><table><thead><tr><th>Boxel</th><th>Progress</th><th></th></tr></thead><tbody>${Array.from({length:be-bp},(_,n)=>{const i=bp+n,x=C.boxAt(s,i),st=C.boxStats(s,i);return`<tr class="${i===s.activeBox?'active':''}"><td class="mono">${esc(x.prefix)}</td><td>${!C.isIncluded(s,i)?'Excluded':st.complete?'Complete':st.total===null?st.handled+' handled · end unknown':st.handled+' / '+st.total}</td><td><button class="small" data-box="${i}" ${!C.isIncluded(s,i)?'disabled':''}>Open</button></td></tr>`;}).join('')}</tbody></table></div><div class="row between" style="margin-top:10px"><button class="small" data-action="boxPrev" ${!boxPage?'disabled':''}>←</button><small>${bp+1}–${be} of ${totalBoxes.toLocaleString()}</small><button class="small" data-action="boxNext" ${be>=totalBoxes?'disabled':''}>→</button></div><details style="margin-top:15px"><summary>Hierarchy & source snapshot</summary><p>${esc(s.source.type)} · ${s.anchors.length} anchor boxels found. Later GalMap changes do not alter this survey.</p><div class="tree">${parentTree(s.anchor)}<p><b>${esc(s.anchor.prefix)}</b> → ${s.levels.map(m=>`${m.toUpperCase()} (${8**(C.MASSES.indexOf(s.anchor.mass)-C.MASSES.indexOf(m))})`).join(', ')}</p></div>${s.anchors.map((x,i)=>`<p>${i+1}. <span class="mono">${esc(x.prefix)}</span> · ${x.count} source entries</p>`).join('')}</details></section>
  <aside class="card"><h3>Survey policy & controls</h3>${['edsm','spansh'].map(p=>`<label class="checkLine"><input type="checkbox" data-provider="${p}" ${s.policy.providers.includes(p)?'checked':''}>Check ${p==='edsm'?'EDSM':'Spansh'}</label>`).join('')}<label class="checkLine"><input id="visitAll" type="checkbox" ${s.policy.visitAll?'checked':''}>Visit even when every catalogue appears complete</label><label class="checkLine"><input id="ignoreVisited" type="checkbox" ${s.policy.ignoreVisited?'checked':''}>Ignore personally visited systems</label><small>Counts journal-recorded visits as handled by policy, even without a full scan. The personal record stays visible.</small><label class="field"><span>Revisit data older than this many days · 0 disables</span><input id="staleDays" type="number" min="0" max="36500" value="${s.policy.staleDays}"></label><small>Unless personal scan evidence or the ignore-visited policy handles a system, absence or uncertain catalogue data requires attention. Belts are included.</small><hr style="border:0;border-top:1px solid var(--line);margin:18px 0">
  <label class="checkLine"><input type="checkbox" id="autoIterate" ${app.options.autoIterate?'checked':''} ${m.end===null?'disabled':''}>Move to the next boxel on arrival at the final system</label><small>Requires a defined final suffix. Scan progress stays with the system you are visiting; unfinished systems remain outstanding.</small>
@@ -731,7 +822,15 @@ async function recover(all=false,fresh=false){
  }catch(e){log('Journal recovery: '+e.message);activity('Journal unavailable: '+e.message);}
  finally{replaying=false;while(pendingEvents.length)onJournal(pendingEvents.shift());changed();}
 }
-let overlayTail=Promise.resolve();function updateOverlay(){if(!bridge||!active())return;overlayTail=overlayTail.catch(()=>{}).then(async()=>{await bridge.overlay(active(),app.options.overlay);const details=$('#overlayDetails');if(details)details.textContent=bridge.overlayDescription();}).catch(e=>{app.options.overlay=false;message('Overlay unavailable: '+e.message,'error');});}
+const attributionPending=new WeakSet();
+function refreshAttribution(){
+ const workspace=app,s=active();if(!bridge||!s||resetting||fatal||stop)return;
+ const i=s.activeBox,seq=C.metadata(s,i).cursor,r=C.recordAt(s,i,seq,false);if(!r||attributionPending.has(r))return;
+ const before=r.edsmDiscovery,valid=()=>app===workspace&&active()===s&&s.activeBox===i&&C.metadata(s,i).cursor===seq&&!resetting&&!fatal&&!stop;
+ attributionPending.add(r);
+ bridge.edsmDiscovery(s,i,seq,{stopped:()=>!valid()}).then(value=>{if(valid()&&value&&value!==before){changed();updateOverlay(false);}}).catch(e=>log('EDSM attribution: '+e.message)).finally(()=>attributionPending.delete(r));
+}
+let overlayTail=Promise.resolve();function updateOverlay(fetchAttribution=true){if(!bridge||!active())return;if(fetchAttribution)refreshAttribution();overlayTail=overlayTail.catch(()=>{}).then(async()=>{await bridge.overlay(active(),app.options.overlay);const details=$('#overlayDetails');if(details)details.textContent=bridge.overlayDescription();}).catch(e=>{app.options.overlay=false;message('Overlay unavailable: '+e.message,'error');});}
 async function startSurvey(){
  if(Object.keys(app.ui.boundErrors||{}).length)throw Error('Correct or clear the invalid final suffix fields before continuing.');
  const s=boundsSurvey();if(C.scopeCount(s)===s.excluded.length)throw Error('Include at least one boxel.');
@@ -742,9 +841,12 @@ async function startSurvey(){
 async function derive(){
  const d=draft();if(d.source.type!=='route')d.source.text=$('#sourceText')?.value||'';
  const names=d.source.type==='route'?C.clone(routeRows):C.inputNames(d.source.text);if(d.source.type==='single'&&names.length!==1)throw Error('Enter exactly one procedural system name.');
- const result=C.deriveAnchors(names,d.anchorMass,d.source.type==='single');d.anchors=result.anchors;d.ignored=result.ignored;d.selected=0;d.source.snapshot=C.clone(names);d.source.captured=new Date().toISOString();changed();render();
+ const result=C.deriveAnchors(names,d.anchorMass,d.source.type==='single');d.anchors=result.anchors;d.ignored=result.ignored;d.selected=0;d.source.snapshot=C.clone(names);d.source.captured=new Date().toISOString();delete d.anchorListId;if(d.source.type!=='single'||d.anchors.length>1)d.anchorListId=C.saveAnchorList(app,d).id;changed();render();
 }
-const actions={derive,source:()=>{app.ui.step=0;render();},nesting:()=>{app.ui.step=1;render();},backNesting:()=>{app.ui.step=1;render();},resume:async()=>{if(app.ui.editBounds)return startSurvey();app.ui={step:3};render();},
+const actions={derive,
+ anchorLists:()=>{if(busy)return;app.ui={step:0};render();},
+ saveAnchorList:async()=>{const d=draft(),name=$('#anchorListName').value.trim();let list=(app.anchorLists||[]).find(x=>x.id===d.anchorListId);if(list){if(!name)throw Error('Enter a name for the anchor list.');list.name=name.slice(0,120);}else{list=C.saveAnchorList(app,d,name);if(name)list.name=name.slice(0,120);d.anchorListId=list.id;}await save();render();message(bridge?'Anchor list saved.':'Anchor list kept in this preview. Export a backup to retain it.','success');},
+ source:()=>{app.ui.step=0;render();},nesting:()=>{app.ui.step=1;render();},backNesting:()=>{app.ui.step=1;render();},resume:async()=>{if(app.ui.editBounds)return startSurvey();app.ui={step:3};render();},
  makeBounds:()=>{app.draftSurvey=C.newSurvey(draft());app.ui={step:2};boundsPage=0;changed();render();},start:startSurvey,
  newSurvey:()=>{app.draft={source:{type:'single',text:''},anchorMass:'d',anchors:[],ignored:[],selected:0,levels:['d','c'],extraParents:[]};app.ui={step:0};render();},
  editBounds:()=>{app.ui={step:2,editBounds:true};boundsPage=0;render();},boundsPrev:()=>{boundsPage--;render();},boundsNext:()=>{boundsPage++;render();},
@@ -772,6 +874,9 @@ async function copy(text){
 document.addEventListener('click',async e=>{
  const button=e.target.closest('button');if(!button||button.disabled)return;
  try{if(button.dataset.copy!==undefined){await copy(button.dataset.copy);return;}if(button.dataset.copyLevel){const d=draft(),b=d.anchors[d.selected],m=button.dataset.copyLevel,count=Math.min(4096,8**(C.MASSES.indexOf(b.mass)-C.MASSES.indexOf(m)));await copy(Array.from({length:count},(_,i)=>C.systemName(C.descendant(b,m,i),0)).join('\n'));return;}
+  if(button.dataset.openAnchorList!==undefined){openAnchorList(button.dataset.openAnchorList);return;}
+  if(button.dataset.removeAnchorList!==undefined){if(busy||replaying)return;const id=button.dataset.removeAnchorList,list=(app.anchorLists||[]).find(x=>x.id===id);if(!list||!confirm(`Remove saved anchor list "${list.name}"? All surveys and their progress will remain.`))return;app.anchorLists=app.anchorLists.filter(x=>x.id!==id);for(const s of app.surveys)if(s.anchorListId===id)delete s.anchorListId;if(app.draft?.anchorListId===id)delete app.draft.anchorListId;if(app.draftSurvey?.anchorListId===id)delete app.draftSurvey.anchorListId;changed();await save();render();return;}
+  if(button.dataset.openSurvey!==undefined){if(busy||replaying)return;const s=app.surveys.find(x=>x.id===button.dataset.openSurvey);if(!s)throw Error('Survey not found.');bridge?.stopPlot();app.activeId=s.id;app.ui={step:3};boxPage=0;tablePage=null;changed();render();updateOverlay();return;}
   if(button.dataset.confirmScan!==undefined){const s=active(),seq=Number(button.dataset.confirmScan),r=C.recordAt(s,s.activeBox,seq,false);if(!r?.journal.visited)return;const confirmed=!r.manualCompletion;C.confirmFullScan(r,confirmed);changed();updateOverlay();render();message((confirmed?'Full scan including belts confirmed for ':'Manual confirmation removed for ')+C.systemName(C.boxAt(s,s.activeBox),seq),confirmed?'success':'');if(confirmed&&C.metadata(s,s.activeBox).cursor===seq)await targetChanged();return;}
   if(button.dataset.target!==undefined){C.metadata(active(),active().activeBox).cursor=Number(button.dataset.target);await targetChanged();render();return;}
   if(button.dataset.box!==undefined){active().activeBox=Number(button.dataset.box);await targetChanged();render();return;}
@@ -780,9 +885,9 @@ document.addEventListener('click',async e=>{
 });
 document.addEventListener('change',async e=>{
  const el=e.target;try{
-  if(el.name==='sourceType'){draft().source.type=el.value;draft().anchors=[];render();}
-  else if(el.id==='sourceText'){draft().source.text=el.value;draft().anchors=[];}
-  else if(el.id==='anchorMass'){const d=draft();d.anchorMass=el.value;d.levels=el.value==='d'?['d','c']:[el.value];d.anchors=[];d.extraParents=[];render();}
+  if(el.name==='sourceType'){draft().source.type=el.value;draft().anchors=[];delete draft().anchorListId;render();}
+  else if(el.id==='sourceText'){draft().source.text=el.value;draft().anchors=[];delete draft().anchorListId;}
+  else if(el.id==='anchorMass'){const d=draft();d.anchorMass=el.value;d.levels=el.value==='d'?['d','c']:[el.value];d.anchors=[];d.extraParents=[];delete d.anchorListId;render();}
   else if(el.name==='selectedAnchor'){draft().selected=Number(el.value);draft().extraParents=[];render();}
   else if(el.dataset.level){const d=draft();d.levels=el.checked?[...new Set([...d.levels,el.dataset.level])]:d.levels.filter(m=>m!==el.dataset.level);render();}
   else if(el.dataset.parent){const d=draft(),p=C.ancestor(d.anchors[d.selected],el.dataset.parent);d.extraParents=el.checked?[...d.extraParents,p]:d.extraParents.filter(x=>x.key!==p.key);render();}
@@ -802,7 +907,7 @@ $('#clipboardFile').onchange=async e=>{try{const file=e.target.files[0];if(!file
 $('#export').onclick=()=>downloadJSON('boxel-survey-backup.json',app);
 $('#reset').onclick=async()=>{
  if(resetting||busy||plotting||replaying)return;
- if(!confirm('Reset this tab to defaults? This clears all surveys, bounds, progress, journal checkpoints and options in this tab. A recovery backup will be downloaded first. JACoB settings, journal files and other tabs are unchanged.'))return;
+ if(!confirm('Reset this tab to defaults? This clears all saved anchor lists, surveys, bounds, progress, journal checkpoints and options in this tab. A recovery backup will be downloaded first. JACoB settings, journal files and other tabs are unchanged.'))return;
  const wasFatal=fatal,workspace=fatal?null:C.clone(app),fresh=defaults();resetting=true;stop=true;targetGeneration++;pendingTarget=null;bridge?.stopPlot();clearTimeout(saveTimer);clearTimeout(renderTimer);render();
  const backup=storage=>downloadJSON('boxel-survey-before-reset-'+new Date().toISOString().replace(/[:.]/g,'-')+'.json',{format:'systematic-survey-reset-backup',version:1,created:new Date().toISOString(),workspace,storage});
  try{
@@ -815,9 +920,9 @@ $('#reset').onclick=async()=>{
  }catch(e){message('Reset failed; the previous survey was kept. '+e.message,'error');}
  finally{resetting=false;render();}
 };
-$('#import').onclick=()=>$('#importFile').click();$('#importFile').onchange=async e=>{try{const file=e.target.files[0];if(!file)return;if(file.size>50000000)throw Error('Backup is too large.');const loaded=await SurveyBridge.importBackup(JSON.parse(await file.text()));if(!confirm('Replace the currently loaded survey workspace with this backup?'))return;stop=true;bridge?.stopPlot();loaded.options={autoCopy:true,autoIterate:false,overlay:false,...loaded.options,autoPlot:false};const old=app;app=loaded;fatal=false;try{await save();}catch(e){app=old;throw e;}app.ui={step:app.activeId?3:0};render();message('Backup restored. Automatic plotting is off.','success');}catch(err){message(err.message,'error');}finally{e.target.value='';}};
+$('#import').onclick=()=>$('#importFile').click();$('#importFile').onchange=async e=>{try{const file=e.target.files[0];if(!file)return;if(file.size>50000000)throw Error('Backup is too large.');const loaded=await SurveyBridge.importBackup(JSON.parse(await file.text()));if(!confirm('Replace the currently loaded survey workspace with this backup?'))return;stop=true;bridge?.stopPlot();loaded.options={autoCopy:true,autoIterate:false,overlay:false,...loaded.options,autoPlot:false};C.restoreAnchorLists(loaded);const old=app;app=loaded;fatal=false;try{await save();}catch(e){app=old;throw e;}app.ui={step:app.activeId?3:0};render();message('Backup restored. Automatic plotting is off.','success');}catch(err){message(err.message,'error');}finally{e.target.value='';}};
 try{
- if(bridge){app=await bridge.load();app.ui=app.ui||{step:app.activeId?3:0};app.options={autoCopy:true,autoIterate:false,overlay:false,...app.options,autoPlot:false};$('#connection').textContent='JACoB connected';
+ if(bridge){app=await bridge.load();if(C.restoreAnchorLists(app))scheduleSave();app.ui=app.ui||{step:app.activeId?3:0};app.options={autoCopy:true,autoIterate:false,overlay:false,...app.options,autoPlot:false};$('#connection').textContent='JACoB connected';
   try{routeRows=await bridge.route();}catch(e){log('Route unavailable: '+e.message);}
   Elite.data.subscribe('navRoute',u=>{routeRows=(u.data?.Route||[]).map(r=>({name:r.StarSystem,id64:C.safeId(r.SystemAddress),pos:r.StarPos}));if((app.ui?.step??0)===0)scheduleRender();});
   Elite.journal.subscribe('*',e=>onJournal(e));render();if(active()){busy=true;stop=false;render();try{await recover(false);}finally{busy=false;}pendingTarget=null;}else try{journalReady=!!(await Elite.journal.files()).files?.length;}catch{}
