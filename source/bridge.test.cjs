@@ -79,7 +79,7 @@ test('history pagination replays all entries in order',async()=>{
  const h=host();h.sdk.journal.read=async o=>o.offset===0?{events:[{n:1}],info:{truncated:true,nextOffset:1}}:{events:[{n:2}],info:{truncated:false}};const seen=[];await createBridge(h.sdk).history(e=>seen.push(e.n));assert.deepEqual(seen,[1,2]);
 });
 test('catalogue rename by verified address is retained as an alias',async()=>{
- const h=host(()=>({status:200,json:{system:{name:'Authored Name',bodyCount:1,bodies:[{name:'Authored Name',type:'Star',subType:'G'}]}}}));h.sdk.catalog={system:{get:async()=>({found:true,record:{name:'Authored Name',body_count:1}})}};const s=make(),r=C.recordAt(s,0,0);r.id64='9007199254740993';const status=await createBridge(h.sdk).spansh(s,0,0);assert.equal(r.alias,'Authored Name');assert.equal(status.complete,true);
+ const h=host(()=>({status:200,json:{system:{name:'Authored Name',id64:'11014227923',bodyCount:1,bodies:[{name:'Authored Name',type:'Star',subType:'G'}]}}}));h.sdk.catalog={system:{get:async()=>({found:true,record:{name:'Authored Name',id64:'11014227923',body_count:1}})}};const s=make(),r=C.recordAt(s,0,0);r.id64='11014227923';const status=await createBridge(h.sdk).spansh(s,0,0);assert.equal(r.alias,'Authored Name');assert.equal(status.complete,true);
 });
 
 // Matches the injected SDK observed in JACoB on 2026-10-12: the outer

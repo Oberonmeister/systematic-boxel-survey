@@ -1,12 +1,12 @@
 {
   "name": "systematic-boxel-survey",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "private": true,
   "description": "Systematic Elite Dangerous boxel surveys as a JACoB extension",
   "scripts": {
     "build": "node source/build.cjs",
-    "test": "node --test source/model.test.cjs source/bridge.test.cjs source/hierarchy.test.cjs source/bulk.test.cjs source/anchor-lists.test.cjs source/attribution.test.cjs",
-    "test:browser": "node source/ui.test.cjs && node source/ui.policy.test.cjs && node source/ui.save.test.cjs && node source/ui.reset.test.cjs && node source/ui.history.test.cjs && node source/ui.bulk-iteration.test.cjs && node source/ui.anchor-lists.test.cjs && node source/ui.attribution.test.cjs",
+    "test": "node --test source/model.test.cjs source/bridge.test.cjs source/hierarchy.test.cjs source/bulk.test.cjs source/anchor-lists.test.cjs source/attribution.test.cjs source/overlap.test.cjs",
+    "test:browser": "node source/ui.test.cjs && node source/ui.policy.test.cjs && node source/ui.save.test.cjs && node source/ui.reset.test.cjs && node source/ui.history.test.cjs && node source/ui.bulk-iteration.test.cjs && node source/ui.anchor-lists.test.cjs && node source/ui.attribution.test.cjs && node source/ui.overlap.test.cjs",
     "test:helper": "python -m unittest discover -s clipboard-helper"
   }
 }

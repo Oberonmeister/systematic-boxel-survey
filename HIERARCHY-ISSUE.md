@@ -1,6 +1,6 @@
 # Confirmed named-sector overlap: Pyurks FS-H d11
 
-Checked 2026-10-11T22:45:02.298Z. **This is a confirmed limitation in the current extension; it is not fixed by the save-lock patch.**
+Originally checked 2026-10-11T22:45:02.298Z. **Version 1.0.9 resolves verified aliases when a physical address reference is available. Name generation without such a reference remains limited.**
 
 The name-derived D boxel agrees with the anchor's independently retrieved numeric address. All eight generated C grids match addresses of actual catalogue systems. However, those systems use NGC 2244 Sector names. The extension incorrectly carries the parent's sector name into every child name. A mathematically valid procedural label is not necessarily a resolvable in-game name.
 
@@ -27,8 +27,16 @@ The child-zero address 87677669314 directly resolves to NGC 2244 Sector LO-W c16
 
 The published [PGRegion/PGSystem reference](https://gist.github.com/klightspeed/772c654f07292b71dfe7aa55c91397e8) also lists a separate NGC 2244 naming origin. Alternative prefixes were checked against live catalogue names and addresses; they were not accepted solely because a formula produced them.
 
-## Required correction
+## Address-based handling in 1.0.9
+
+An additional confirmed case is `Pyurks FH-J d10-0` → `NGC 2244 Sector GW-M d7-0`, address `10997434331` (user-supplied Spansh response and GalMap confirmation, 21 October 2026). The old adapter rejected this valid response solely because both names were procedural but differed.
+
+Individual checks now accept an alternate name only with the requested address, validate body-detail identity, and use the actual name for copying and the HUD. A new name triggers an EDSM recheck if the prior record was unresolved or absent. Known EDSM names remain valid when their addresses match. Journal events match already identified physical cells, including suffixes not yet checked individually; excluded boxes and suffixes beyond a supplied bound stay outside scope.
+
+After an alias has been resolved, **Check entire boxel** queries both the original and observed alternate prefixes. Alternate hits require the same physical boxel and suffix. It does not rewrite all siblings or infer which naming region each unknown star will use. If a bulk check still misses a target, **Check target** can resolve it by address when a reference exists. Without a reference or a catalogue record, the displayed name remains unresolved and must be checked in GalMap.
+
+## Remaining limitation
 
 Physical boxel identity must be separated from naming-region labels. Actual names from verified addresses must be used for copying and catalogue queries; journal events under named-sector aliases must map back to the same survey cell. Unresolved systems need explicit naming uncertainty. A whole boxel must not be blindly renamed from one sample: regional boundaries can affect individual stars differently. This affects duplicate detection and progress attribution as well as the displayed names.
 
-The original naming test used formula-generated expectations and was not independent validation against the game. The new fixture tests establish physical containment and document the naming disagreement. They do not assert that named-sector support is implemented. The production HTML remains unchanged by this investigation.
+The original naming test used formula-generated expectations and was not independent validation against the game. The hierarchy fixture tests establish physical containment and document the naming disagreement. The separate overlap regression tests cover the address-based handling above; they do not establish universal prediction of names in overlapping regions.

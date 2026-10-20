@@ -205,6 +205,24 @@ function catalogueStatus(raw,now=new Date().toISOString()){
  return{state:'present',name:source.name||source.system_name||'',id64:safeId(source.id64),expected:total,scanned:majors.length,belts:belts.length,beltsResolved:belts.filter(n=>resolved.some(x=>norm(x)===norm(n))).length,complete:beltsComplete,quality:beltsComplete?'Apparently complete':majorComplete?'Major bodies complete; belts unverified':majors.length?'Partial scan data':total?'Body count only':'Coordinates / visit record',updated:dated?new Date(Math.min(...times)).toISOString():'',latestBodyUpdate:bodyDates.length?new Date(Math.max(...bodyDates)).toISOString():'',checked:now};
 }
 function safeId(id){if(typeof id==='number'&&!Number.isSafeInteger(id))return '';return /^\d+$/.test(String(id??''))?String(id):'';}
+function addressParts(value){
+ const text=safeId(value);if(!text)return null;const id=BigInt(text);
+ // System addresses occupy 55 bits; body-address bits are not a boxel reference.
+ if(id<=0n||id>=(1n<<55n))return null;
+ const mass=Number(id&7n),shift=BigInt(44-3*mass);
+ return{id:id.toString(),mass:MASSES[mass],seq:Number(id>>shift),cell:(id&((1n<<shift)-1n)).toString(),shift};
+}
+function referenceAddress(s,i){
+ const m=s.boxes[i],b=boxAt(s,i);if(!m||!b)return null;
+ const reference=addressParts(m.referenceId);
+ const records=Object.values(m.records).map(r=>({r,a:addressParts(r.id64)})).filter(({r,a})=>a&&a.mass===b.mass&&a.seq===r.seq);
+ const a=reference?.mass===b.mass?reference:records[0]?.a;
+ // Conflicting evidence cannot justify alias matching or derived addresses.
+ return a&&records.every(x=>x.a.cell===a.cell)?a:null;
+}
+function addressAt(s,i,seq){
+ const a=referenceAddress(s,i);return a&&Number.isSafeInteger(seq)&&seq>=0&&seq<=maxSuffix(a.mass)?(BigInt(a.cell)|(BigInt(seq)<<a.shift)).toString():'';
+}
 function outcome(r,policy,now=Date.now()){
  if(!r)return{handled:false,reason:'Unchecked',kind:'unchecked'};
  const local=localStatus(r);if(local.complete)return{handled:true,reason:local.manual?'Full scan manually confirmed':'Personal scan complete, including belts',kind:'local'};
@@ -244,9 +262,20 @@ function advanceOnArrival(s,at,autoIterate=false){
  return at.seq===m.cursor&&move(s,1);
 }
 function locateEvent(s,e){
- const name=e.StarSystem||e.SystemName||'',p=parseName(name);
- if(p){const i=boxIndex(s,p);if(i>=0&&isIncluded(s,i))return{i,seq:p.seq};}
- const id=safeId(e.SystemAddress);if(id)for(const [i,m]of Object.entries(s.boxes))for(const r of Object.values(m.records))if(r.id64===id)return{i:Number(i),seq:r.seq};
+ const name=e.StarSystem||e.SystemName||'',p=parseName(name),id=safeId(e.SystemAddress),a=addressParts(id);
+ if(p){const i=boxIndex(s,p);if(i>=0&&isIncluded(s,i)){
+  const r=recordAt(s,i,p.seq,false),expected=addressAt(s,i,p.seq);
+  // Keep ordinary journal replay fast, but a label cannot override address evidence.
+  if(!id||!(r?.id64&&r.id64!==id||expected&&expected!==id))return{i,seq:p.seq};
+ }}
+ // A renamed arrival may precede its catalogue check. Match a known physical
+ // cell, not just records already created under that exact system address.
+ if(id){const matches=[];for(const [key,m]of Object.entries(s.boxes)){
+  const i=Number(key);if(!isIncluded(s,i))continue;
+  const exact=Object.values(m.records).find(r=>r.id64===id),ref=a&&referenceAddress(s,i);
+  const seq=exact?.seq??(a&&ref?.cell===a.cell?a.seq:null);
+  if(seq!==null&&seq!==undefined&&(m.end===null||seq<=m.end))matches.push({i,seq});
+ }if(matches.length===1)return matches[0];if(matches.length>1)return null;}
  return null;
 }
 function applyJournal(s,e){
@@ -297,6 +326,6 @@ function validateApp(app){
   }
  }if(app.activeId&&!app.surveys.some(s=>s.id===app.activeId))throw Error('The active survey is missing.');return app;
 }
-const api={MASSES,norm,clone,parseName,systemName,boxFromXYZ,ancestor,parents,descendant,inputNames,deriveAnchors,saveAnchorList,draftFromAnchorList,restoreAnchorLists,scopeSections,scopeCount,boxAt,boxIndex,isIncluded,metadata,newSurvey,setBound,recordAt,normalBody,beltName,localStatus,personalStatus,confirmFullScan,catalogueTime,catalogueDateLabel,catalogueStatus,safeId,outcome,boxStats,surveyStats,move,iterateBoxel,advanceOnArrival,applyJournal,validateApp,maxSuffix};
+const api={MASSES,norm,clone,parseName,systemName,boxFromXYZ,ancestor,parents,descendant,inputNames,deriveAnchors,saveAnchorList,draftFromAnchorList,restoreAnchorLists,scopeSections,scopeCount,boxAt,boxIndex,isIncluded,metadata,newSurvey,setBound,recordAt,normalBody,beltName,localStatus,personalStatus,confirmFullScan,catalogueTime,catalogueDateLabel,catalogueStatus,safeId,addressParts,referenceAddress,addressAt,outcome,boxStats,surveyStats,move,iterateBoxel,advanceOnArrival,applyJournal,validateApp,maxSuffix};
 if(typeof module!=='undefined'&&module.exports)module.exports=api;else root.SurveyCore=api;
 })(typeof globalThis!=='undefined'?globalThis:this);

@@ -1,4 +1,14 @@
-# Systematic Boxel Survey changes — 1.0.8
+# Systematic Boxel Survey changes — 1.0.9
+
+## 1.0.9 — match overlapping names by verified system address
+
+Fixes the false “Spansh address resolved to a different procedural system” error. The reported `Pyurks FH-J d10-0` address, `10997434331`, resolves to `NGC 2244 Sector GW-M d7-0`; the user confirmed the same name in GalMap. Alternate names now require a matching returned ID64. Conflicting addresses, mass codes and suffixes remain errors, and body details are checked separately before they can establish completeness.
+
+The target card, copying and overlay use the verified name while the card retains the original survey sequence. EDSM is retried under a newly resolved name when needed; a verified EDSM record can keep its own catalogue name. Whole-boxel checks search the original prefix plus already observed alternate prefixes, accepting alternate results only by physical address. Ordinary boxels retain the existing two bulk presence requests.
+
+Journal arrivals and scans can match a known physical boxel even before that individual suffix has been checked. Bounds and exclusions still apply, navigation advances on arrival, and later scans update the visited system. This does not predict unknown naming regions, rename all siblings, or infer completion from catalogue absence. Existing surveys and backups remain compatible.
+
+Validation: 112 logic tests and nine isolated browser workflows passed, including the reported address/name pair, identity-conflict and timeout cases, bulk preservation, journal matching, and an isolated browser workflow covering copying, HUD, arrival, late scans and reload. No live game inputs are sent by tests.
 
 ## 1.0.8 — saved anchor lists, EDSM attribution and scan dates
 

@@ -96,3 +96,10 @@ Automated and live-catalogue checks are documented in README. Native overlay app
 EDSM `api-system-v1/traffic` supplies system discovery attribution. It is fetched only for the selected known EDSM target, asynchronously after clipboard preparation, through the existing queued network adapter. `edsmDiscovery` is persisted independently of catalogue status so refreshes retain it. Identity is verified against name and known ID64, concurrent calls share a request, abandoned targets discard late responses, and missing attribution and errors are cached for a day and a minute respectively. Successful named attribution is retained. Failures do not alter catalogue state or journal evidence.
 
 `latestBodyUpdate` is the maximum available returned body timestamp for display. `updated` remains the oldest major-body timestamp used by stale-data policy and requires all major-body dates. Naive EDSM timestamps are interpreted as UTC. Only the body-update display date is marked pre-Odyssey before 2021-05-19; discovery dates and request times cannot create this marker. Neither this date nor the marker certifies the last visit or untouched biology.
+
+
+## Physical identity and alternate names (1.0.9)
+
+The model decodes 55-bit system addresses using BigInt; body addresses are rejected as references. A consistent boxel reference allows address generation by replacing only the suffix field. Catalogue responses with different labels must explicitly return the requested ID64; procedural aliases must agree on mass and suffix. Detail responses are verified independently. EDSM keeps its own verified catalogue label if it differs from Spansh.
+
+Bulk queries include the original prefix plus verified alternate prefixes already saved for that boxel. Alternate rows are filtered by physical address, never by matching suffix alone. This preserves the two-request presence path for ordinary boxels. No whole-region origin table or speculative renaming is introduced. Journal matching falls back to exact saved addresses and known physical cells, with exclusions and bounds respected. Existing schema-1 state needs no migration.

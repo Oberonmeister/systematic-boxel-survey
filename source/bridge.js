@@ -119,19 +119,21 @@ function createBridge(Elite,notify=()=>{}){
   idHelpersAvailable=false;return true;
  }
  async function sequenceAddress(s,i,seq){
-  const m=C.metadata(s,i);if(!m.referenceId){const r=Object.values(m.records).find(r=>r.id64);if(r)m.referenceId=r.id64;}
-  if(m.referenceId&&idHelpersAvailable&&Elite.galaxy?.addressForSequence){
-   try{return await serial(()=>Elite.galaxy.addressForSequence(m.referenceId,seq));}
-   catch(e){if(!rejectedValidID(e,m.referenceId))throw e;}
+  const reference=C.referenceAddress(s,i),expected=C.addressAt(s,i,seq);if(!expected)return '';
+  if(idHelpersAvailable&&Elite.galaxy?.addressForSequence){
+   try{const id=C.safeId(await serial(()=>Elite.galaxy.addressForSequence(reference.id,seq)));
+    if(id!==expected)throw Error('Calculated address disagrees with the saved boxel.');return id;
+   }catch(e){if(!rejectedValidID(e,reference.id))throw e;}
+  }return expected;
+ }
+ function verifyIdentity(raw,id,name){
+  const supplied=raw?.id64??raw?.systemAddress;
+  if(supplied!==undefined&&C.safeId(supplied)!==id)throw Error('Catalogue returned a different system address.');
+  if(raw?.name&&C.norm(raw.name)!==C.norm(name)){
+   if(C.safeId(supplied)!==id)throw Error('Alternate catalogue name has no matching system address.');
+   const p=C.parseName(raw.name),a=C.addressParts(id);
+   if(p&&(!a||p.mass!==a.mass||p.seq!==a.seq))throw Error('Alternate catalogue name disagrees with its system address.');
   }
-  // Same bit layout as JACoB galaxy.AddressForSequence. A known boxel
-  // address needs no name search when an older injected validator is broken.
-  if(m.referenceId&&C.safeId(m.referenceId)){
-   const id=BigInt(m.referenceId),mass=Number(id&7n),width=BigInt(11+3*mass),shift=BigInt(44-3*mass);
-   if(id>18446744073709551615n||!Number.isSafeInteger(seq)||seq<0||BigInt(seq)>=(1n<<width))throw Error('Invalid sequence address.');
-   return ((id&~(((1n<<width)-1n)<<shift))|(BigInt(seq)<<shift)).toString();
-  }
-  return '';
  }
  async function spansh(s,i,seq){
   const b=C.boxAt(s,i),r=C.recordAt(s,i,seq),name=C.systemName(b,seq);let id=r.id64||await sequenceAddress(s,i,seq);
@@ -162,19 +164,23 @@ function createBridge(Elite,notify=()=>{}){
   }
   if(!idHelpersAvailable||!Elite.catalog?.system?.get){const res=await fetchJSON('https://spansh.co.uk/api/system/'+id,'spansh');if(!res)return{state:'absent',checked:new Date().toISOString()};raw=res.record;}
   if(!raw||!raw.name)throw Error('Spansh system record was not recognised.');
-  const p=C.parseName(raw.name);
-  if(p&&C.norm(raw.name)!==C.norm(name))throw Error('Spansh address resolved to a different procedural system.');
+  verifyIdentity(raw,id,name);
   r.id64=id;r.alias=raw.name;C.metadata(s,i).referenceId=id;
   const dump=await fetchJSON('https://spansh.co.uk/api/dump/'+id,'spansh');
   if(!dump?.system)return{...C.catalogueStatus({...raw,id64:id}),complete:false,quality:'Body detail unavailable'};
+  verifyIdentity(dump.system,id,raw.name);
   // Trust the requested system address; preserve the original expected denominator.
   const full={...raw,...dump.system,id64:id,bodyCount:raw.bodyCount??raw.body_count??dump.system.bodyCount};
   return C.catalogueStatus(full);
  }
  const discoveryRequests=new WeakMap();
+ function edsmName(s,i,seq){
+  const r=C.recordAt(s,i,seq),known=r.catalogues.edsm;
+  return known?.state==='present'&&known.id64===r.id64&&known.name?known.name:r.alias||C.systemName(C.boxAt(s,i),seq);
+ }
  async function edsmDiscovery(s,i,seq,{stopped=()=>false}={}){
   const r=C.recordAt(s,i,seq,false);if(!r||!s.policy.providers.includes('edsm')||r.catalogues.edsm?.state!=='present'||stopped())return;
-  const name=r.alias||C.systemName(C.boxAt(s,i),seq),cached=r.edsmDiscovery;
+  const name=edsmName(s,i,seq),cached=r.edsmDiscovery;
   if(cached?.name===name&&(cached.commander||Date.now()-Date.parse(cached.checked)<(cached.error?60000:86400000)))return cached;
   if(discoveryRequests.has(r))return discoveryRequests.get(r);
   const request=(async()=>{
@@ -190,7 +196,7 @@ function createBridge(Elite,notify=()=>{}){
   discoveryRequests.set(r,request);try{return await request;}finally{discoveryRequests.delete(r);}
  }
  async function edsmBatch(s,i,sequences){
-  const b=C.boxAt(s,i),names=sequences.map(seq=>C.recordAt(s,i,seq).alias||C.systemName(b,seq));
+  const names=sequences.map(seq=>edsmName(s,i,seq));
   const query=names.map(n=>'systemName[]='+encodeURIComponent(n)).join('&');
   const data=await fetchJSON('https://www.edsm.net/api-v1/systems?showId=1&showCoordinates=1&includeHidden=1&'+query,'edsm');
   if(!Array.isArray(data))throw Error('EDSM batch response was not an array; absence cannot be established.');
@@ -199,9 +205,11 @@ function createBridge(Elite,notify=()=>{}){
    const seq=sequences[k],r=C.recordAt(s,i,seq),hit=data.find(x=>C.norm(x.name)===C.norm(names[k])||(r.id64&&C.safeId(x.id64)===r.id64));
    if(!hit){out.set(seq,{state:'absent',checked:new Date().toISOString()});continue;}
    if(hit.mergedTo){out.set(seq,{state:'unknown',quality:'Renamed catalogue entry; identity needs resolution',checked:new Date().toISOString()});continue;}
+   try{verifyIdentity(hit,r.id64||C.safeId(hit.id64),names[k]);}catch(e){out.set(seq,{state:'error',error:e.message,checked:new Date().toISOString()});continue;}
    if(C.safeId(hit.id64))r.id64=C.safeId(hit.id64);
    try{const detail=await fetchJSON('https://www.edsm.net/api-system-v1/bodies?systemName='+encodeURIComponent(hit.name),'edsm');
     if(!detail||!Array.isArray(detail.bodies)){out.set(seq,{...C.catalogueStatus(hit),complete:false,quality:'Body detail unavailable'});continue;}
+    verifyIdentity(detail,r.id64,hit.name);
     out.set(seq,C.catalogueStatus({...hit,...detail}));
    }catch(e){out.set(seq,{...C.catalogueStatus(hit),complete:false,quality:'Body detail request failed',error:e.message});}
   }return out;
@@ -215,10 +223,18 @@ function createBridge(Elite,notify=()=>{}){
     const wanted=chunk.filter(seq=>{const r=C.recordAt(s,i,seq);return r&&!fresh(r,'edsm');});
     if(wanted.length){notify(`Checking EDSM · ${wanted.length} system${wanted.length===1?'':'s'}`);try{const results=await edsmBatch(s,i,wanted);for(const [seq,status]of results)C.recordAt(s,i,seq).catalogues.edsm=status;}catch(e){for(const seq of wanted)C.recordAt(s,i,seq).catalogues.edsm=error(e);}updated();}
    }
-   if(s.policy.providers.includes('spansh'))for(const seq of chunk){if(stopped())break;const r=C.recordAt(s,i,seq);if(!r||fresh(r,'spansh'))continue;
+   const renamed=[];
+   if(s.policy.providers.includes('spansh'))for(const seq of chunk){if(stopped())break;const r=C.recordAt(s,i,seq);if(!r||fresh(r,'spansh'))continue;const before=r.alias||C.systemName(C.boxAt(s,i),seq);
     notify(`Checking Spansh · ${C.systemName(C.boxAt(s,i),seq)}`);try{r.catalogues.spansh=await spansh(s,i,seq); }catch(e){r.catalogues.spansh=error(e);updated();
      if((e.code==='TIMEOUT'||/timed? ?out|HTTP 5[0-9][0-9]/i.test(e.message||''))&&seq!==sequences.at(-1))throw Error('Spansh is not responding reliably. Batch paused; completed results are retained. Retry Check target later.');
-    }updated();
+    }finally{if(r.alias&&C.norm(r.alias)!==C.norm(before)&&!(r.catalogues.edsm?.state==='present'&&r.catalogues.edsm.id64===r.id64)){
+     renamed.push(seq);if(s.policy.providers.includes('edsm'))r.catalogues.edsm={state:'unknown',quality:'Alternate name resolved; EDSM recheck pending',checked:new Date().toISOString()};
+    }updated();}
+   }
+   if(renamed.length&&s.policy.providers.includes('edsm')&&!stopped()){
+    notify('Checking EDSM under verified alternate names…');
+    try{for(const [seq,status]of await edsmBatch(s,i,renamed))C.recordAt(s,i,seq).catalogues.edsm=status;}
+    catch(e){for(const seq of renamed)C.recordAt(s,i,seq).catalogues.edsm=error(e);}updated();
    }
   }
  }
@@ -228,19 +244,36 @@ function createBridge(Elite,notify=()=>{}){
  async function checkBoxel(s,i,{stopped=()=>false,updated=()=>{}}={}){
   const b=C.boxAt(s,i),m=C.metadata(s,i),end=m.end;
   if(!b||!Number.isSafeInteger(end)||end<0)throw Error('Set the final suffix before checking an entire boxel.');
-  const providers=['edsm','spansh'].filter(p=>s.policy.providers.includes(p)),policy=JSON.stringify(s.policy),prefix=b.prefix+(b.n1?'-':''),hits={},errors=[];
+  const providers=['edsm','spansh'].filter(p=>s.policy.providers.includes(p)),policy=JSON.stringify(s.policy),hits={},errors=[];
+  const prefixOf=box=>box.prefix+(box.n1?'-':'');
+  const prefixes=new Set([prefixOf(b)]),reference=C.referenceAddress(s,i);
+  // Query observed aliases in bulk, never rename all siblings from one sample.
+  // Other systems in the alternate region are accepted only by physical ID.
+  for(const r of Object.values(m.records)){
+   const p=C.parseName(r.alias),a=C.addressParts(r.id64);if(p&&a&&reference?.cell===a.cell&&a.seq===r.seq&&p.mass===b.mass&&p.seq===r.seq)prefixes.add(prefixOf(p));
+  }
   const changed=()=>stopped()||m.end!==end||!C.isIncluded(s,i)||JSON.stringify(s.policy)!==policy;
   const failed=e=>({state:'error',error:e.message||String(e),checked:new Date().toISOString()});
   // Presence is discovered once per provider, before any body detail requests.
   for(const provider of providers){
    if(changed())return;notify(`Finding ${provider==='edsm'?'EDSM':'Spansh'} systems in ${b.prefix}…`);
    try{
-    const data=provider==='edsm'?await fetchJSON('https://www.edsm.net/api-v1/systems?showId=1&includeHidden=1&systemName='+encodeURIComponent(prefix),'edsm'):
-     await fetchJSON('https://spansh.co.uk/api/systems/search','spansh',{method:'POST',headers:{Accept:'application/json','Content-Type':'application/json'},body:{filters:{name:{value:prefix}},sort:[],size:end+11,page:0}});
-    const rows=provider==='edsm'?data:data?.results;
-    if(!Array.isArray(rows)||rows.some(x=>!x||typeof x.name!=='string'))throw Error('Bulk catalogue response was not recognised.');
-    if(m.end!==end||!C.isIncluded(s,i))return;
-    const found=new Map();for(const row of rows){const p=C.parseName(row.name);if(p?.key===b.key&&p.seq<=end&&(!found.has(p.seq)||found.get(p.seq).mergedTo&&!row.mergedTo))found.set(p.seq,row);}
+    const found=new Map();for(const prefix of prefixes){
+     if(changed())return;
+     const data=provider==='edsm'?await fetchJSON('https://www.edsm.net/api-v1/systems?showId=1&includeHidden=1&systemName='+encodeURIComponent(prefix),'edsm'):
+      await fetchJSON('https://spansh.co.uk/api/systems/search','spansh',{method:'POST',headers:{Accept:'application/json','Content-Type':'application/json'},body:{filters:{name:{value:prefix}},sort:[],size:end+11,page:0}});
+     const rows=provider==='edsm'?data:data?.results;
+     if(!Array.isArray(rows)||rows.some(x=>!x||typeof x.name!=='string'))throw Error('Bulk catalogue response was not recognised.');
+     if(m.end!==end||!C.isIncluded(s,i))return;
+     const currentReference=C.referenceAddress(s,i);
+     for(const row of rows){const p=C.parseName(row.name),id=C.safeId(row.id64),a=C.addressParts(id);if(!p||p.seq>end)continue;
+      const same=p.key===b.key,physical=a&&currentReference?.cell===a.cell&&a.seq===p.seq&&p.mass===b.mass;
+      if(!same&&!physical)continue;
+      const prior=found.get(p.seq);
+      if(prior&&C.safeId(prior.id64)&&id&&C.safeId(prior.id64)!==id)throw Error('Catalogue returned conflicting system addresses for one suffix.');
+      if(!prior||prior.mergedTo&&!row.mergedTo||physical&&!same)found.set(p.seq,row);
+     }
+    }
     hits[provider]=found;
     for(let seq=0;seq<=end;seq++){
      const r=C.recordAt(s,i,seq),hit=found.get(seq),checked=new Date().toISOString();if(!r)continue;
@@ -248,7 +281,7 @@ function createBridge(Elite,notify=()=>{}){
      if(hit.mergedTo){r.catalogues[provider]={state:'unknown',quality:'Renamed catalogue entry; identity needs resolution',checked};continue;}
      const id=C.safeId(hit.id64);
      if(id&&r.id64&&id!==r.id64){r.catalogues[provider]={state:'error',error:'Catalogue address disagrees with the saved system address.',checked};continue;}
-     if(id)r.id64=id;
+     if(id){r.id64=id;if(C.norm(hit.name)!==C.norm(C.systemName(b,seq)))r.alias=hit.name;}
      r.catalogues[provider]={...C.catalogueStatus(hit,checked),complete:false,quality:'Present; scan details not requested',needsDetails:true};
     }
    }catch(e){errors.push(provider+': '+e.message);for(let seq=0;seq<=end;seq++){const r=C.recordAt(s,i,seq);if(r)r.catalogues[provider]=failed(e);}}
@@ -265,7 +298,7 @@ function createBridge(Elite,notify=()=>{}){
      const data=await fetchJSON(provider==='edsm'?'https://www.edsm.net/api-system-v1/bodies?systemName='+encodeURIComponent(hit.name):'https://spansh.co.uk/api/dump/'+id,provider);
      const detail=provider==='edsm'?data:data?.system;
      if(!detail||!Array.isArray(detail.bodies))throw Error('Body detail response was not recognised.');
-     if(detail.name&&C.norm(detail.name)!==C.norm(hit.name))throw Error('Body details belong to a different system.');
+     verifyIdentity(detail,id,hit.name);
      r.catalogues[provider]=C.catalogueStatus({...hit,...detail,id64:id||detail.id64,bodyCount:hit.bodyCount??hit.body_count??detail.bodyCount??detail.body_count});
     }catch(e){r.catalogues[provider]={...r.catalogues[provider],complete:false,quality:'Body detail request failed',error:e.message,needsDetails:true};updated();
      if(e.code==='TIMEOUT'||/timed? ?out|HTTP 5[0-9][0-9]/i.test(e.message||''))throw Error('Catalogue detail checks paused; completed results retained. '+e.message);
@@ -310,7 +343,7 @@ function createBridge(Elite,notify=()=>{}){
  async function overlay(s,enabled){
   if(!enabled)return Elite.overlay.clear();const b=C.boxAt(s,s.activeBox),m=C.metadata(s,s.activeBox),st=C.boxStats(s,s.activeBox),overall=C.surveyStats(s),r=C.recordAt(s,s.activeBox,m.cursor,false);
   const progress=stats=>stats.total===null?`${stats.handled} handled; end unknown`:`${stats.handled}/${stats.total} (${stats.percent.toFixed(1)}%)`;
-  const sections=[`Total survey: ${progress(overall)}`,`Current boxel survey: ${b.prefix} - ${progress(st)}`,`Next: ${C.systemName(b,m.cursor)}`,...s.policy.providers.map(p=>{
+  const sections=[`Total survey: ${progress(overall)}`,`Current boxel survey: ${b.prefix} - ${progress(st)}`,`Next: ${r?.alias||C.systemName(b,m.cursor)}`,...s.policy.providers.map(p=>{
    const c=r?.catalogues[p],who=p==='edsm'&&c?.state==='present'?r?.edsmDiscovery?.commander:'',date=C.catalogueTime(c?.latestBodyUpdate);
    return `${p==='edsm'?'EDSM':'Spansh'}: ${c?.state||'unchecked'}${who?' ['+who+']':''}${date?' · body update '+C.catalogueDateLabel(date):''}`;
   })];

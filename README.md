@@ -2,7 +2,7 @@
 
 A [JACoB](https://github.com/pseudo6626/JACoB) extension for systematic exploration in **Elite Dangerous**. Choose a survey volume and its mass classes, check public catalogues, and work through procedural system sequences with persistent progress.
 
-**Current version: 1.0.8.** Import the ready-made HTML tab; no build is required to use it.
+**Current version: 1.0.9.** Import the ready-made HTML tab; no build is required to use it.
 
 ## What it does
 
@@ -44,7 +44,7 @@ Spansh name searches are relevance-limited: a search miss remains a visit candid
 
 EDSM names identify its system-discovery attribution, not your personal visit record. The date is the latest reported body update in the returned data, not the latest commander visit or query time. **(pre-Odyssey)** marks dates before [19 May 2021](https://store.steampowered.com/app/1336350/Elite_Dangerous_Odyssey/); later unreported exploration may still have occurred. Commander names are fetched for the selected target and cached; this adds no per-system requests to bulk discovery.
 
-**Known limitation:** child names can be wrong where named sectors overlap procedural naming regions. Read the [sector-overlap explanation and examples](HIERARCHY-ISSUE.md) if generated names do not resolve. A sequence endpoint also does not certify that every earlier system has been handled.
+**Named-sector overlaps:** when a boxel has a known system address, individual checks can resolve an alternate catalogue name and use it for copying, the HUD and journal matching. Whole-boxel checks also search verified alternate prefixes already observed in that boxel. Names are never extrapolated to every sibling. Boxels with no address reference still have the [naming limitation](HIERARCHY-ISSUE.md); a search miss is not proof of nonexistence. A sequence endpoint also does not certify that every earlier system has been handled.
 
 Optional automatic GalMap plotting is experimental and off by default. Clipboard navigation is the normal workflow.
 

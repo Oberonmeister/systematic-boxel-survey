@@ -1,6 +1,6 @@
 # Systematic Boxel Survey for JACoB
 
-Import **Systematic-Boxel-Survey.html** (version **1.0.8**) as a separate saved JACoB tab. It does not replace BOXEL Explorer or change JACoB’s core. Spansh checks use a known exact address where available; otherwise they inspect the top 10 name-search results. A search miss is labelled **No exact match in top 10**, remains a visit candidate, and does not prove catalogue absence. A known system in that same boxel can supply an address reference. No reference is required to continue surveying. See **FIXES.md** for catalogue timeout handling, the developer's journal fix, Spansh compatibility, reset recovery, personal history, clipboard helper and the green HUD2 overlay.
+Import **Systematic-Boxel-Survey.html** (version **1.0.9**) as a separate saved JACoB tab. It does not replace BOXEL Explorer or change JACoB’s core. Spansh checks use a known exact address where available; otherwise they inspect the top 10 name-search results. A search miss is labelled **No exact match in top 10**, remains a visit candidate, and does not prove catalogue absence. A known system in that same boxel can supply an address reference. No reference is required to continue surveying. See **FIXES.md** for catalogue timeout handling, the developer's journal fix, Spansh compatibility, reset recovery, personal history, clipboard helper and the green HUD2 overlay.
 
 **Check entire boxel** now makes one EDSM prefix request and one Spansh search for the number of systems plus ten (or only the enabled provider). Results are filtered by exact boxel and suffix. Spansh search misses are labelled **Not found in boxel search**, remain visit candidates, and are not proof of absence. Body details are requested only for matches in every enabled catalogue, excluding systems already handled by personal evidence, the ignore-visited policy, or the visit-every-system policy. Provider errors remain unresolved. **Check target** and **Check next 25** retain individual checks.
 
@@ -103,3 +103,10 @@ npm test
 For the optional browser tests, install Playwright in your development environment, make it resolvable by Node, and run `npm run test:browser` (all eight workflows). `CHROME_PATH` can select an installed browser; `SURVEY_SCREENSHOT_DIR` controls optional screenshots.
 
 See **DESIGN.md** for the reuse audit and state/data flow. Upstream source inspected: [pseudo6626/JACoB, commit 284f9cc](https://github.com/pseudo6626/JACoB/tree/284f9cc3291a5b4c53cf14628c91b0940573ee25).
+
+
+## Alternate names in overlapping regions (1.0.9)
+
+If a target resolves to another sector name, use **Check target**. With a valid boxel reference address, the extension verifies the returned system address and displays/copies the actual name, keeping the original survey sequence underneath. EDSM checks follow the resolved name where needed. Journal arrivals and scans stay attached to the same physical boxel.
+
+Then **Check entire boxel** can search both the original and already observed alternate prefixes. It still uses bulk requests; a normal boxel needs no extra prefix queries. Each alternative result must match the physical address. An unresolved suffix is not declared nonexistent or complete, and no naming rule is inferred for every sibling. Boxels without a known reference address still need manual GalMap verification. See **HIERARCHY-ISSUE.md** for the evidence and limits.
