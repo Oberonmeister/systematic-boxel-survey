@@ -1,4 +1,14 @@
-# Systematic Boxel Survey changes — 1.0.9
+# Systematic Boxel Survey changes — 1.0.10
+
+## 1.0.10 — JACoB native clipboard, optional helper
+
+The saved **Clipboard method** defaults to **Automatic — prefer JACoB**. On Alpha0.2.19 / SDK15 and later it uses the host's native clipboard even when a helper is paired. Click a Copy button once after opening/reloading the tab to grant permission if needed and enable background native copies for that session. The controls distinguish native availability, successful initialization, helper selection and browser fallback.
+
+Native success requires a positive write acknowledgement. Permission denial, unavailable writes, busy/timeout errors and failed capability checks remain visible; they never trigger a second write through the helper. Automatic fallback is limited to an absent API or explicitly unavailable backend. Explicit helper/browser choices remain available. UTF-8 limits, concurrent writes and obsolete targets are checked before dispatch. Oversized manual list copies choose the browser before any native attempt.
+
+Disconnecting the helper keeps automatic copying enabled when native support is available. The optional helper package and stop script remain included; stopping the process and removing its startup shortcut is separate from unpairing. Existing survey data and catalogue behavior are preserved.
+
+Validation: 123 logic tests, ten isolated browser workflows and seven helper tests passed. Coverage includes native precedence over a paired helper, permission/setup handling, positive acknowledgements, no fallback after failed writes, UTF-8 limits, stale/concurrent copies, simulated arrival copying, saved mode choices, helper disconnection and reload with survey progress preserved. The clipboard and journal hosts are simulated; no game inputs or real clipboard writes are sent by these tests.
 
 ## 1.0.9 — match overlapping names by verified system address
 

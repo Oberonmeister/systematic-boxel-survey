@@ -2,7 +2,7 @@
 
 A [JACoB](https://github.com/pseudo6626/JACoB) extension for systematic exploration in **Elite Dangerous**. Choose a survey volume and its mass classes, check public catalogues, and work through procedural system sequences with persistent progress.
 
-**Current version: 1.0.9.** Import the ready-made HTML tab; no build is required to use it.
+**Current version: 1.0.10.** Import the ready-made HTML tab; no build is required to use it.
 
 ## What it does
 
@@ -11,7 +11,7 @@ A [JACoB](https://github.com/pseudo6626/JACoB) extension for systematic explorat
 - Shows EDSM system-discovery commanders in brackets, reported body-update dates and a pre-Odyssey date marker.
 - Checks EDSM and Spansh. Whole-boxel checks discover presence in bulk, then request scan details only where they can affect the visit decision.
 - Tracks personal visits and scans from journals, supports explicit full-scan confirmation, and can exclude previously visited systems by policy.
-- Prepares sequential targets and copies them automatically with the optional Windows clipboard helper, including while the game has focus.
+- Prepares sequential targets and copies them through JACoB's native clipboard, including while the game has focus. The Windows helper remains an optional alternative.
 - Keeps next-target navigation separate from scanning the system you are currently visiting.
 - Provides a transparent green progress overlay, persistent surveys, and export/import backups.
 - Can move to the next included boxel on arrival at a user-defined final system. Unfinished systems remain outstanding.
@@ -22,7 +22,7 @@ A [JACoB](https://github.com/pseudo6626/JACoB) extension for systematic explorat
 2. Use JACoB with SDK 11 or later. HUD2 styling uses the newer SDK 13 overlay support when available.
 3. In JACoB's **Tab Manager**, choose **Upload HTML** and select [Systematic-Boxel-Survey.html](Systematic-Boxel-Survey.html). Preview, then **Save tab**.
 4. Check that JACoB is reading your actual Elite journal directory and enable its Network permission for catalogue checks.
-5. For background automatic copying, follow the [clipboard helper instructions](clipboard-helper/README.md). The helper requires Windows and Python 3; it sends no game inputs.
+5. For background automatic copying, use JACoB **Alpha0.2.19 / SDK15 or later**. Leave **Clipboard method → Automatic — prefer JACoB** selected, enable **Copy target when it changes**, and click **Copy Target** once after opening the tab. Allow **Write the host clipboard** if prompted. The status confirms when native copying is active. Older hosts can use the optional [Windows helper](clipboard-helper/README.md).
 
 When updating, replace the HTML in the **same saved tab** to retain its stored surveys. Export a backup first. A standalone browser preview has no live game connection or JACoB persistence.
 

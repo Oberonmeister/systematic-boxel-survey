@@ -1,12 +1,12 @@
 # Systematic Boxel Survey for JACoB
 
-Import **Systematic-Boxel-Survey.html** (version **1.0.9**) as a separate saved JACoB tab. It does not replace BOXEL Explorer or change JACoB’s core. Spansh checks use a known exact address where available; otherwise they inspect the top 10 name-search results. A search miss is labelled **No exact match in top 10**, remains a visit candidate, and does not prove catalogue absence. A known system in that same boxel can supply an address reference. No reference is required to continue surveying. See **FIXES.md** for catalogue timeout handling, the developer's journal fix, Spansh compatibility, reset recovery, personal history, clipboard helper and the green HUD2 overlay.
+Import **Systematic-Boxel-Survey.html** (version **1.0.10**) as a separate saved JACoB tab. It does not replace BOXEL Explorer or change JACoB’s core. Spansh checks use a known exact address where available; otherwise they inspect the top 10 name-search results. A search miss is labelled **No exact match in top 10**, remains a visit candidate, and does not prove catalogue absence. A known system in that same boxel can supply an address reference. No reference is required to continue surveying. See **FIXES.md** for catalogue timeout handling, the developer's journal fix, Spansh compatibility, reset recovery, personal history, native clipboard support and the green HUD2 overlay.
 
 **Check entire boxel** now makes one EDSM prefix request and one Spansh search for the number of systems plus ten (or only the enabled provider). Results are filtered by exact boxel and suffix. Spansh search misses are labelled **Not found in boxel search**, remain visit candidates, and are not proof of absence. Body details are requested only for matches in every enabled catalogue, excluding systems already handled by personal evidence, the ignore-visited policy, or the visit-every-system policy. Provider errors remain unresolved. **Check target** and **Check next 25** retain individual checks.
 
 Catalogue batches check EDSM first. A Spansh timeout or server error pauses the batch and preserves completed results. Retry **Check target** before running another batch. Once a boxel address is known, sequence addresses can be calculated exactly without repeated name searches, including on older hosts with the broken string-ID validator. This improves failure handling; it cannot repair an unavailable remote service.
 
-**Confirmed limitation: named-sector overlaps are not handled correctly.** For `Pyurks FS-H d11`, the eight physical C children contain systems named under `NGC 2244 Sector`; the tab generates unresolved Pyurks labels. Copying, catalogue matching and journal attribution can therefore be wrong in overlap areas. See **HIERARCHY-ISSUE.md** for eight independently verified examples and the required correction. This investigation has not yet changed the production HTML.
+**Named-sector overlaps need address evidence.** For `Pyurks FS-H d11`, the eight physical C children contain systems named under `NGC 2244 Sector`; generated Pyurks labels may not resolve. Since 1.0.9, a known boxel address lets checks verify alternate names and use them for copying and journal attribution. Unknown boxels still need manual verification. See **HIERARCHY-ISSUE.md** and the alternate-name workflow below for the evidence and remaining limits.
 
 ## Install
 
@@ -23,7 +23,7 @@ Open the HTML directly in a browser for an offline UI preview. That preview has 
 - The anchor list preserves first occurrence. Choose the boxel you want to survey. A single higher-mass source is rejected with an explanation; higher-mass entries in a list or route are omitted and reported. Authored/unsupported source names are also reported, never guessed into a boxel.
 - Select layers. D + C includes exactly one D sequence and its eight nested C sequences. Copy starting names beside the selection. Optional parents add only their own sequence.
 - Copy each prefix into GalMap and enter the final suffix, or leave it unknown. Suffix 47 means 48 systems, numbered 0–47. A full final name is also accepted if it matches the boxel.
-- Targets advance sequentially. Every enabled catalogue is checked when a target is prepared; sufficiently complete entries are passed over. The next required target is copied automatically when enabled. **Copy Target** repeats the copy on demand. Install the included local helper for copying while Elite has focus.
+- Targets advance sequentially. Every enabled catalogue is checked when a target is prepared; sufficiently complete entries are passed over. The next required target is copied automatically when enabled. **Copy Target** repeats the copy on demand. Use native clipboard support or the optional helper for copying while Elite has focus; see the setup below.
 - **Previous/Next** leave passed-over unfinished systems outstanding. **Iterate Boxel** moves to the next included boxel, including when the current endpoint remains unknown. It does not establish completion or discover an endpoint.
 - **Move to the next boxel on arrival at the final system** is optional and off by default. It requires a defined final suffix; the control is disabled for an open-ended active boxel. A live ship or carrier jump to that endpoint moves to the next included boxel, resuming its saved cursor and using the normal target preparation and clipboard flow. Earlier unfinished systems remain outstanding. Historical replay and login location events never trigger it, and the last included boxel does not wrap.
 - Arrival prepares the next target. Journal scans continue updating the system you are actually in. Completing FSS is separate from changing targets.
@@ -71,13 +71,23 @@ Age-based revisits are off by default. If enabled, the adapter uses the oldest d
 - The optional overlay is a single **green** (`#65FF9A`) line centered at the top. It has no background or border. Sections use ` | ` and retain **Total survey** and **Current boxel survey**. On HUD2 (SDK13), it uses smooth Segoe UI text, weight 600, a 1.5 px dark outline, a small shadow and restrained glow. Full text opacity plus the dark edge improves contrast against bright stars. Older hosts receive a centered green line without unsupported effects. Size defaults to 18 px and shrinks to fit; the controls show which rendering path is active.
 - Optional automatic GalMap plotting is adapted from JACoB’s route-queue example. It is off by default and disarmed on reload/import. It depends on the game’s map layout and bindings; success requires a new route ending at the requested target. A failure disarms it. **This routine has not been tested against the user’s running game.** Clipboard navigation is the tested default.
 
-## Clipboard helper
+## Native clipboard and optional helper
+
+With JACoB **Alpha0.2.19 / SDK15 or later**, choose **Clipboard method → Automatic — prefer JACoB**. This is the default, including when upgrading a tab that already has a helper connection. Enable **Copy target when it changes**, then click **Copy Target** once after opening or reloading the tab. Allow JACoB's **Write the host clipboard** permission if prompted. A successful manual copy enables automatic native copying for that open tab, and the status changes to **JACoB native clipboard active**. There is no countdown or helper polling on this path.
+
+Native copying writes the clipboard on the computer running JACoB, through a browser on that computer. Platform support comes from JACoB; the extension does not require Python for this path. **Refresh clipboard status** checks availability without copying. JACoB's permission is attached to the saved tab revision, so a tab update or permission reset may prompt again. If permission was denied, reset this tab's permissions in JACoB and retry a Copy button.
+
+Automatic mode uses the helper only if the native API is absent or explicitly reports unavailable, then the browser if no helper is paired. A native write failure remains visible and does not retry through another writer. **Local clipboard helper** and **Browser clipboard** explicitly select those methods. Browser copying may fail while Elite has focus. The chosen method is saved with the workspace. Native writes require a successful host acknowledgement before the tab says **Copied**. Large manual lists exceeding the native 16,384 UTF-8 byte limit use the browser instead, before any native write is attempted.
+
+To retire an existing helper, first confirm native copying works after a target change. **Disconnect clipboard helper** leaves automatic copying enabled when native support is available. Then run the included `clipboard-helper/Stop-ClipboardHelper.ps1`; it stops the helper and removes its Windows startup shortcut while keeping its files for optional reuse. No survey reset is needed.
 
 The optional Windows helper is included in `clipboard-helper/`. It uses Python 3 with no extra packages and runs quietly, without switching focus or sending game inputs. See that folder’s **README.md** for installation and removal.
 
 JACoB blocks direct network access from saved tabs, so the helper uses the supported `Elite.store` and `Elite.data` interfaces: requests are saved in this tab’s namespace, and a small `SurveyClipboardStatus.json` acknowledgment file lives beside the journals. The helper reads JACoB’s state file but never writes it; it never edits game journals, contacts the internet or opens a listening port. It writes only its own companion/status files and the clipboard. The tab displays **Copied** only after receiving the matching successful acknowledgment. Connection settings are separate from survey backups.
 
 ## Validation
+
+Version 1.0.10 passes 123 logic tests, ten isolated browser workflows and seven helper tests. Native clipboard tests cover setup, acknowledgements, background arrival copies, failures without fallback, explicit method selection, persisted settings and helper disconnection. Tests simulate JACoB and do not write the user's real clipboard or control Elite. Earlier live validation is recorded below.
 
 Version 1.0.7 passes six isolated browser workflows, including the whole-boxel button, automatic bounded iteration, clipboard preparation, late FSS attribution, open-ended behavior, history replay, reset and persistence. The implemented bulk adapter was also tested against live services for `Phroea Phio UK-W c18` (0–17): four requests found EDSM suffix 13, Spansh suffixes 3/13/14, and classified 13 complete in both, matching the prior results. The 133-system `Col 107 Sector HI-I d10` live discovery response is retained as a compact public-data regression fixture. Automatic iteration was verified with simulated journal events; no game inputs were sent.
 
@@ -100,7 +110,7 @@ node source/build.cjs
 npm test
 ```
 
-For the optional browser tests, install Playwright in your development environment, make it resolvable by Node, and run `npm run test:browser` (all eight workflows). `CHROME_PATH` can select an installed browser; `SURVEY_SCREENSHOT_DIR` controls optional screenshots.
+For the optional browser tests, install Playwright in your development environment, make it resolvable by Node, and run `npm run test:browser` (all ten workflows). `CHROME_PATH` can select an installed browser; `SURVEY_SCREENSHOT_DIR` controls optional screenshots.
 
 See **DESIGN.md** for the reuse audit and state/data flow. Upstream source inspected: [pseudo6626/JACoB, commit 284f9cc](https://github.com/pseudo6626/JACoB/tree/284f9cc3291a5b4c53cf14628c91b0940573ee25).
 

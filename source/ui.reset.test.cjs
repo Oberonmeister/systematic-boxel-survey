@@ -23,7 +23,7 @@ const C=require('./model.js'),{createBridge}=require('./bridge.js'),{createStore
   assert.equal(await page.evaluate(()=>SurveyUI.getState().surveys.length),1);
   await page.evaluate(()=>__failExport=false);page.once('dialog',d=>d.accept());await reset.click();await page.getByText('Tab reset to defaults. A recovery backup was downloaded.',{exact:true}).waitFor();
   assert.equal(await page.locator('#anchorMass').inputValue(),'d');assert.equal(await page.locator('#sourceText').inputValue(),'');
-  const state=await page.evaluate(()=>SurveyUI.getState());assert.deepEqual(state.surveys,[]);assert.deepEqual(state.options,{autoCopy:true,autoPlot:false,autoIterate:false,overlay:false});
+  const state=await page.evaluate(()=>SurveyUI.getState());assert.deepEqual(state.surveys,[]);assert.deepEqual(state.options,{autoCopy:true,autoPlot:false,autoIterate:false,overlay:false,clipboardMode:'auto'});
   const saved=await page.evaluate(async()=>await SurveyBridge.createBridge(Elite).load());assert.deepEqual(saved.surveys,[]);
   const download=await page.evaluate(()=>__downloads[0]);assert.match(download.name,/before-reset/);assert.equal(download.data.workspace.surveys[0].boxes[0].end,9);
   page.once('dialog',d=>d.accept());await page.locator('#importFile').setInputFiles({name:'reset-backup.json',mimeType:'application/json',buffer:Buffer.from(JSON.stringify(download.data))});

@@ -307,7 +307,22 @@ function createBridge(Elite,notify=()=>{}){
    }
   }
  }
- let clipboardTail=Promise.resolve(),overlayDescription='Centered green text; HUD2 effects activate on compatible JACoB versions.';
+ let clipboardTail=Promise.resolve(),clipboardMode='auto',nativeClipboard=null,nativeClipboardRequest=null,nativeReady=false,copying=false,overlayDescription='Centered green text; HUD2 effects activate on compatible JACoB versions.';
+ function setClipboardMode(mode='auto'){
+  if(!['auto','helper','browser'].includes(mode))throw Error('Choose a valid clipboard method.');clipboardMode=mode;
+ }
+ async function refreshClipboard(){
+  if(nativeClipboardRequest)return nativeClipboardRequest;
+  nativeClipboardRequest=(async()=>{
+   if(typeof Elite.clipboard?.info!=='function'||typeof Elite.clipboard?.writeText!=='function')return nativeClipboard={available:false,reason:'This JACoB version has no native clipboard API.'};
+   try{const info=await Elite.clipboard.info();if(typeof info?.available!=='boolean')throw Error('JACoB returned an unrecognised clipboard status.');
+    return nativeClipboard={available:info.available,backend:info.backend||'',maxTextBytes:Number.isSafeInteger(info.maxTextBytes)&&info.maxTextBytes>0?Math.min(16384,info.maxTextBytes):16384,reason:info.reason||''};
+   }catch(e){return nativeClipboard={available:null,error:e.message||String(e)};}
+  })();try{return await nativeClipboardRequest;}finally{nativeClipboardRequest=null;}
+ }
+ function clipboardStatus(){
+  return{mode:clipboardMode,native:nativeClipboard?{...nativeClipboard}:null,nativeReady,helper:!!clipboardConfig};
+ }
  function validateClipboardConfig(config){
   if(config?.format!=='survey-clipboard-helper'||config.transport!=='jacob-store-v1'||!/^[a-f0-9]{64}$/.test(config.token||''))throw Error('Choose the connection.json file created by the current survey clipboard helper installer.');
   return{format:config.format,transport:config.transport,token:config.token};
@@ -332,13 +347,47 @@ function createBridge(Elite,notify=()=>{}){
  async function disconnectClipboard(){
   await clipboardTail.catch(()=>{});await storeCall(()=>Elite.store.batch([{op:'delete',key:'survey.clipboardHelper'},{op:'delete',key:'survey.clipboardRequest'}]));clipboardConfig=null;
  }
- async function copy(text){
-  if(clipboardConfig&&text.length<=16384){await clipboardRequest('clipboard',{text});return 'helper';}
+ async function copy(text,{automatic=false,isCurrent=()=>true}={}){
+  if(typeof text!=='string'||text.includes('\0'))throw Error('Clipboard text must be a string without NUL characters.');
+  if(copying)throw Object.assign(Error('A clipboard write is already in progress. Retry the current target.'),{code:'CLIPBOARD_BUSY'});
+  copying=true;const mode=clipboardMode;
+  const current=()=>{if(!isCurrent()||mode!==clipboardMode)throw Object.assign(Error('Target changed before copying.'),{code:'STALE_TARGET'});};
+  try{
+   current();let native;
+   if(mode==='auto'){
+    native=nativeClipboard||await refreshClipboard();current();
+    if(native.available===null)throw Error('Could not check JACoB clipboard support: '+native.error+' Refresh clipboard status or choose a copy method.');
+   }
+   if(mode==='auto'&&native.available){
+    const bytes=new TextEncoder().encode(text).length;
+    if(bytes>native.maxTextBytes){
+     // Choose browser copying BEFORE a native attempt for large manual lists.
+     if(automatic)throw Error('Target exceeds the native clipboard size limit.');
+     return await browserCopy(text);
+    }
+    if(automatic&&!nativeReady)throw Object.assign(Error('Click Copy Target once to allow native copying for this open tab.'),{code:'CLIPBOARD_SETUP_REQUIRED'});
+    current();try{const result=await Elite.clipboard.writeText(text);
+     if(result?.written!==true)throw Error('JACoB did not confirm the clipboard write.');nativeReady=true;return 'native';
+    }catch(e){
+     if(e.code==='PERMISSION_DENIED'){nativeReady=false;throw Object.assign(Error('JACoB clipboard permission was denied. Reset this tab’s permissions in JACoB, then click Copy Target and allow “Write the host clipboard”.'),{code:e.code});}
+     if(e.code==='HOST_ONLY')throw Object.assign(Error('Native copying requires a browser on the computer running JACoB.'),{code:e.code});
+     throw e; // Never fall through to a second writer after a native attempt.
+    }
+   }
+   if(mode==='helper'||mode==='auto'&&clipboardConfig){
+    if(!clipboardConfig)throw Error('Connect the optional clipboard helper, or choose Automatic to use JACoB.');
+    if(text.length<=16384){current();await clipboardRequest('clipboard',{text});return 'helper';}
+    if(automatic)throw Error('Target exceeds the clipboard helper size limit.');
+   }
+   current();return await browserCopy(text);
+  }finally{copying=false;}
+ }
+ async function browserCopy(text){
   // Adapted from BOXEL-surveyer: execCommand remains useful in sandboxed saved tabs.
   const ta=document.createElement('textarea');ta.value=text;ta.readOnly=true;ta.style.cssText='position:fixed;left:-9999px;top:0';document.body.appendChild(ta);ta.focus({preventScroll:true});ta.select();ta.setSelectionRange(0,ta.value.length);
   let ok=false;try{ok=document.execCommand('copy');}catch{}ta.remove();
   if(!ok&&globalThis.navigator?.clipboard?.writeText){await navigator.clipboard.writeText(text);ok=true;}
-  if(!ok)throw Error('Browser clipboard access failed. Connect the local clipboard helper for automatic copying while Elite has focus.');return 'browser';
+  if(!ok)throw Error('Browser clipboard access failed. Use JACoB native copying or connect the optional helper for copying while Elite has focus.');return 'browser';
  }
  async function overlay(s,enabled){
   if(!enabled)return Elite.overlay.clear();const b=C.boxAt(s,s.activeBox),m=C.metadata(s,s.activeBox),st=C.boxStats(s,s.activeBox),overall=C.surveyStats(s),r=C.recordAt(s,s.activeBox,m.cursor,false);
@@ -381,7 +430,7 @@ function createBridge(Elite,notify=()=>{}){
    return actual;
   }finally{off?.();}
  }
- return{load,save,reset,route,history,check,checkBoxel,copy,configureClipboard,disconnectClipboard,hasClipboardHelper:()=>!!clipboardConfig,overlayDescription:()=>overlayDescription,overlay,plot,stopPlot,fetchJSON,edsmBatch,edsmDiscovery,spansh};
+ return{load,save,reset,route,history,check,checkBoxel,copy,setClipboardMode,refreshClipboard,clipboardStatus,configureClipboard,disconnectClipboard,hasClipboardHelper:()=>!!clipboardConfig,overlayDescription:()=>overlayDescription,overlay,plot,stopPlot,fetchJSON,edsmBatch,edsmDiscovery,spansh};
 }
 if(typeof module!=='undefined'&&module.exports)module.exports={createBridge,importBackup};else root.SurveyBridge={createBridge,importBackup};
 })(typeof globalThis!=='undefined'?globalThis:this);

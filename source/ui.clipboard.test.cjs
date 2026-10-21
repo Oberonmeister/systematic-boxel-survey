@@ -1,0 +1,32 @@
+/* Isolated browser: mocked native clipboard, helper and journals; no game input. */
+const assert=require('node:assert/strict'),path=require('node:path'),C=require('./model.js'),{chromium}=require('playwright');
+(async()=>{const browser=await chromium.launch({headless:true,executablePath:process.env.CHROME_PATH});try{
+ const s=C.newSurvey({source:{type:'single'},...C.deriveAnchors(['Pyurks FH-J d10-0'],'d'),selected:0,levels:['d'],extraParents:[]});C.setBound(s,0,4);s.policy.providers=[];s.historyVersion=2;
+ const workspace={schema:1,surveys:[s],activeId:s.id,options:{autoCopy:true,overlay:false},ui:{step:3}},page=await browser.newPage(),errors=[];page.on('pageerror',e=>errors.push(e.message));
+ await page.addInitScript(workspace=>{
+  window.__store={'survey.manifest':{schema:1,chunks:1,encoding:'json',revision:0},'survey.chunk.0':JSON.stringify(workspace),'survey.clipboardHelper':{format:'survey-clipboard-helper',transport:'jacob-store-v1',token:'a'.repeat(64)}};
+  window.__store=JSON.parse(sessionStorage.getItem('__restore')||'null')||window.__store;
+  window.__native=[];window.__helper=[];window.__subs=[];window.__nativeError='';window.__delay=true;window.__finish=null;
+  window.Elite={store:{get:async(k,f)=>__store[k]??f,batch:async ops=>{for(const o of ops){o.op==='set'?__store[o.key]=o.value:delete __store[o.key];if(o.key==='survey.clipboardRequest'&&o.value?.action==='clipboard')__helper.push(o.value.text);}}},
+   clipboard:{info:async()=>({available:true,backend:'win32',maxTextBytes:16384}),writeText:async text=>{__native.push(text);if(__nativeError)throw Object.assign(Error(__nativeError),{code:__nativeError});if(__delay)return new Promise(resolve=>{__finish=()=>resolve({written:true});});return{written:true};}},
+   net:{fetchQueued:async()=>{throw Error('No catalogue request expected');}},data:{get:async name=>name==='SurveyClipboardStatus.json'?{found:true,data:{requestId:__store['survey.clipboardRequest']?.id,ok:true}}:{found:false},subscribe:()=>()=>{}},
+   journal:{files:async()=>({files:[]}),read:async()=>({events:[],info:{truncated:false}}),subscribe:(name,cb)=>__subs.push(cb)},overlay:{clear:async()=>{},set:async()=>{}}};
+  document.execCommand=()=>{throw Error('Browser clipboard must not run');};
+ },workspace);
+ await page.goto('file:///'+path.resolve(__dirname,'..','Systematic-Boxel-Survey.html').replaceAll('\\','/'));await page.waitForFunction(()=>window.SurveyUI&&!SurveyUI.getBusy());
+ assert.equal(await page.locator('#clipboardMode').inputValue(),'auto');assert.match(await page.locator('#clipboardMethodStatus').innerText(),/native clipboard available/);assert.deepEqual(await page.evaluate(()=>[__native.length,__helper.length]),[0,0]);
+ await page.locator('[data-action="copyTarget"]').click();await page.waitForFunction(()=>!!__finish);assert.doesNotMatch(await page.locator('#clipboardStatus').innerText(),/^Copied:/);
+ await page.evaluate(()=>{__delay=false;__finish();});await page.getByText('JACoB native clipboard active. Copying works while Elite has focus.',{exact:true}).waitFor();assert.match(await page.locator('#clipboardStatus').innerText(),/Copied: Pyurks FH-J d10-0/);
+ await page.evaluate(()=>__subs.forEach(cb=>cb({event:'FSDJump',StarSystem:'Pyurks FH-J d10-0'})));await page.waitForFunction(()=>!SurveyUI.getBusy()&&__native.at(-1)==='Pyurks FH-J d10-1');assert.equal((await page.evaluate(()=>__helper)).length,0);
+ await page.evaluate(()=>{__nativeError='PERMISSION_DENIED';});await page.locator('[data-action="next"]').click();await page.waitForFunction(()=>!SurveyUI.getBusy());assert.match(await page.locator('#clipboardStatus').innerText(),/permission was denied/);assert.equal((await page.evaluate(()=>__helper)).length,0);
+ await page.locator('#clipboardMode').selectOption('helper');await page.locator('[data-action="copyTarget"]').click();await page.waitForFunction(()=>__helper.at(-1)==='Pyurks FH-J d10-2');
+ await page.locator('[data-action="save"]').click();await page.getByText('Survey saved.',{exact:true}).waitFor();await page.evaluate(()=>sessionStorage.setItem('__restore',JSON.stringify(__store)));await page.reload();await page.waitForFunction(()=>window.SurveyUI&&!SurveyUI.getBusy());assert.equal(await page.locator('#clipboardMode').inputValue(),'helper');assert.equal((await page.evaluate(()=>__native)).length,0);
+ await page.locator('#clipboardMode').selectOption('auto');await page.evaluate(()=>{__delay=false;});await page.locator('[data-action="copyTarget"]').click();await page.getByText('JACoB native clipboard active. Copying works while Elite has focus.',{exact:true}).waitFor();
+ await page.getByText('Clipboard helper connection',{exact:true}).click();await page.locator('[data-action="disconnectClipboard"]').click();await page.getByText('Helper disconnected. JACoB native copying remains selected.',{exact:true}).waitFor();assert.equal(await page.locator('#autoCopy').isChecked(),true);
+ const oldCount=await page.evaluate(()=>__native.length);await page.locator('[data-action="next"]').click();await page.waitForFunction(count=>!SurveyUI.getBusy()&&__native.length===count+1,oldCount);assert.equal(await page.evaluate(()=>__native.at(-1)),'Pyurks FH-J d10-3');
+ await page.locator('[data-action="refreshClipboard"]').click();assert.equal(await page.evaluate(()=>__native.length),oldCount+1,'refresh does not write');
+ await page.locator('[data-action="save"]').click();await page.getByText('Survey saved.',{exact:true}).waitFor();assert.equal(await page.evaluate(()=>__store['survey.clipboardHelper']),undefined);await page.evaluate(()=>sessionStorage.setItem('__restore',JSON.stringify(__store)));await page.reload();await page.waitForFunction(()=>window.SurveyUI&&!SurveyUI.getBusy());
+ assert.equal(await page.locator('#clipboardMode').inputValue(),'auto');assert.equal(await page.locator('#autoCopy').isChecked(),true);assert.match(await page.locator('#clipboardStatus').innerText(),/Click Copy Target once/);assert.equal((await page.evaluate(()=>__native)).length,0);
+ const state=await page.evaluate(()=>SurveyUI.getState());assert.equal(state.surveys[0].boxes[0].end,4);assert.equal(state.surveys[0].boxes[0].cursor,3);assert.equal(state.surveys[0].boxes[0].records[0].journal.visited,true);assert.deepEqual(errors,[]);
+ console.log('PASS: native setup/acknowledgement, background arrival copying, denial without fallback, explicit helper mode, saved choice, helper disconnection, refresh and reload with progress preserved.');
+ }finally{await browser.close();}})().catch(e=>{console.error(e);process.exitCode=1;});

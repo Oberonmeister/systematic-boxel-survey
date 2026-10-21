@@ -2,7 +2,7 @@
 
 This plan was established before implementation, then updated here to describe the delivered code. It applies the user’s final clarifications: numerical order, clipboard-first navigation, optional plotting, Iterate Boxel = next boxel, belt-inclusive completion, no Skip button, and omission of higher-mass source entries from lists.
 
-**Known design gap discovered during user testing:** physical boxel identity is conflated with the naming region. The current child generator carries the anchor’s sector label into descendants, which fails at named-sector overlaps. All eight C grids of `Pyurks FS-H d11` have independently verified NGC 2244 catalogue examples. See **HIERARCHY-ISSUE.md** and `source/hierarchy.catalogue-fixture.json`. The production extension has not yet been corrected for this case.
+**Known naming limitation discovered during user testing:** the child generator carries the anchor’s sector label into descendants, which fails at named-sector overlaps. All eight C grids of `Pyurks FS-H d11` have independently verified NGC 2244 catalogue examples. Since 1.0.9, verified addresses can resolve alternate names; boxels without address evidence still retain this limitation. See **HIERARCHY-ISSUE.md**, `source/hierarchy.catalogue-fixture.json` and the physical-identity section below.
 
 ## Reuse unchanged through JACoB’s SDK
 
@@ -15,6 +15,7 @@ This plan was established before implementation, then updated here to describe t
 | `Elite.catalog.system.get` | Spansh record lookup when a verified/predicted sequence ID64 is available |
 | `Elite.galaxy.addressForSequence` | Preserve boxel address bits and substitute the sequence using decimal-string IDs |
 | `Elite.overlay.info/set/clear` | Centered transparent green top-strip scene; HUD2 text effects when available |
+| `Elite.clipboard.info/writeText` | Preferred host clipboard with capability detection and positive write acknowledgement |
 | `Elite.bindings.press`, `Elite.input.text`, `Elite.system.health` | Optional plotting only; no game input in ordinary clipboard mode |
 | `Elite.files.json` | User-triggered backup exports |
 
@@ -86,7 +87,7 @@ Automated and live-catalogue checks are documented in README. Native overlay app
 
 `checkBoxel` requires a user-defined final suffix and performs presence discovery before details. EDSM uses its documented prefix query; Spansh requests N + 10 relevance-ranked results. Exact parsed names and range checks discard unrelated rows. Only positive matches in all enabled catalogues can need completion details; local policy may eliminate those too. Search misses retain their uncertainty. Failures never fabricate absence; stop and policy changes prevent subsequent requests. Individual checks retain the prior exact-address/name behavior.
 
-`advanceOnArrival` keeps navigation separate from survey completion. The optional transition requires a live arrival at the defined final suffix of the active boxel, skips excluded boxels and never wraps. The UI excludes historical replay and Location events, keeps copying through the existing helper, and lets journal evidence continue updating the visited system.
+`advanceOnArrival` keeps navigation separate from survey completion. The optional transition requires a live arrival at the defined final suffix of the active boxel, skips excluded boxels and never wraps. The UI excludes historical replay and Location events, uses the chosen clipboard method, and lets journal evidence continue updating the visited system.
 
 
 ## Saved sources and catalogue context (1.0.8)
@@ -103,3 +104,11 @@ EDSM `api-system-v1/traffic` supplies system discovery attribution. It is fetche
 The model decodes 55-bit system addresses using BigInt; body addresses are rejected as references. A consistent boxel reference allows address generation by replacing only the suffix field. Catalogue responses with different labels must explicitly return the requested ID64; procedural aliases must agree on mass and suffix. Detail responses are verified independently. EDSM keeps its own verified catalogue label if it differs from Spansh.
 
 Bulk queries include the original prefix plus verified alternate prefixes already saved for that boxel. Alternate rows are filtered by physical address, never by matching suffix alone. This preserves the two-request presence path for ordinary boxels. No whole-region origin table or speculative renaming is introduced. Journal matching falls back to exact saved addresses and known physical cells, with exclusions and bounds respected. Existing schema-1 state needs no migration.
+
+## Native clipboard selection (1.0.10)
+
+The adapter follows JACoB's [SDK15 native clipboard contract](https://github.com/pseudo6626/JACoB/blob/main/docs/NATIVE_CLIPBOARD.md). The saved `clipboardMode` defaults to `auto`, preferring the native API even with an existing helper pairing. Read-only capability discovery is cached and explicitly refreshable. An absent API or explicit unavailable response permits helper/browser selection; discovery errors and native write errors do not. Explicit helper/browser modes are available separately.
+
+A successful manual native write arms automatic writes for the current page session. This avoids requesting permission during a background journal event before the user has initialized copying. JACoB owns permission and local-host enforcement; the extension does not inspect its private permission store. Native success requires `written === true`. UTF-8 byte limits are checked before calling the host; oversized manual lists select the browser before a native attempt. Concurrent copies are rejected, and pending target preparation checks its generation before writing. No failed native request is retried through another clipboard backend.
+
+Pairing remains separate from backups. Disconnecting the helper preserves automatic copying when native support is available. The extension never stops an OS process; the optional helper's stop script handles process/startup cleanup. Existing surveys, bounds, history, aliases and catalogue logic are unchanged.
