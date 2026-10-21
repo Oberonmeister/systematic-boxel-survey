@@ -50,6 +50,7 @@ Optional automatic GalMap plotting is experimental and off by default. Clipboard
 
 ## Documentation
 
+- [Illustrated OASIS / SRIGS exploration guide (PDF)](docs/OASIS_SRIGS_Boxel_Exploration_Guide.pdf) - guide 2.1 for extension 1.0.10; route/string input is the default workflow for project cartographers.
 - [Detailed usage and installation guide](USAGE.md)
 - [Clipboard helper setup and removal](clipboard-helper/README.md)
 - [Version history](FIXES.md)
@@ -57,7 +58,7 @@ Optional automatic GalMap plotting is experimental and off by default. Clipboard
 - [Known naming limitation](HIERARCHY-ISSUE.md)
 - [Credits and source provenance](CREDITS.md)
 
-The illustrated PDF manual is being prepared and is not included yet.
+The [guide's permanent download link](https://raw.githubusercontent.com/Oberonmeister/systematic-boxel-survey/main/docs/OASIS_SRIGS_Boxel_Exploration_Guide.pdf) keeps the same address across editions. Link to it from a website instead of uploading another copy. See [guide edition notes](docs/README.md).
 
 ## Development
 
